@@ -38,7 +38,7 @@ class Entity:
             self.aspects.append(aspType(self))
         
     def tick(self, dtime):
-        print "%s Tick" % self.uiname
+        #print "%s Tick" % self.uiname
         for aspect in self.aspects:
             aspect.tick(dtime)
 
@@ -55,12 +55,13 @@ class motherShip(Entity):
         self.mesh = 'sphere.mesh'
         self.uiname = 'motherShip' + str(id)
         self.acceleration = 2
-        self.turningRate  = 0.1
+        self.turningRate  = 0.7
         self.maxSpeed = 25
         self.desiredSpeed = 0
         self.desiredHeading = 0
         self.speed = 0
         self.heading = 0
+        self.aspectTypes = [Physics, Renderer, ai.motherShipCommandMgr]
 #-----------------------------------------------------------------------------------------
 class defender(Entity):
     def __init__(self, engine, id, pos = Vector3(0,0,0), vel = Vector3(0, 0, 0), yaw = 0):
@@ -68,7 +69,7 @@ class defender(Entity):
         self.mesh = 'cube.mesh'
         self.uiname = 'defender' + str(id)
         self.acceleration = 33
-        self.turningRate  = 0.3
+        self.turningRate  = 0.7
         self.maxSpeed = 55
         self.desiredSpeed = 0
         self.desiredHeading = 0
@@ -83,7 +84,7 @@ class attacker(Entity):
         self.mesh = 'robot.mesh'
         self.uiname = 'attacker' + str(id)
         self.acceleration = 33
-        self.turningRate  = 0.3
+        self.turningRate  = 0.7
         self.maxSpeed = 55
         self.desiredSpeed = 0
         self.desiredHeading = 0
