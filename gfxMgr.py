@@ -46,7 +46,7 @@ class GfxMgr:
  
     # Create the render window
     def createRenderWindow(self):
-        self.root.initialise(True, "CS 381 Spring 2012 Engine Version 1.0")
+        self.root.initialise(True, "Its always been Wankershim Games Engine")
  
     # Initialize the resources here (which were read from resources.cfg in defineResources()
     def initializeResourceGroups(self):
@@ -66,13 +66,13 @@ class GfxMgr:
  
         # Setup a ground plane.
         #plane = ogre.Plane ((0, 1, 0), -100)
-        self.groundPlane = ogre.Plane ((0, 1, 0), 0)
+        self.groundPlane = ogre.Plane ((0, 1, 0), -7)
         meshManager = ogre.MeshManager.getSingleton ()
         meshManager.createPlane ('Ground', 'General', self.groundPlane,
                                      10000, 10000, 50, 50, True, 1, 50, 50, (0, 0, 1))
         ent = self.sceneManager.createEntity('GroundEntity', 'Ground')
         self.sceneManager.getRootSceneNode().createChildSceneNode ().attachObject (ent)
-        ent.setMaterialName ('Examples/groundTexture') #OceanCg
+        ent.setMaterialName ('Examples/DarkMaterial') #OceanCg
         ent.castShadows = False
         self.sceneManager.setSkyBox (True, "Examples/SpaceSkyBox", 50000, False)
         self.camYawNode = self.sceneManager.getRootSceneNode().createChildSceneNode('CamNode1',

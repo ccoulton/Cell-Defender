@@ -10,7 +10,7 @@ class EntityMgr:
         self.ents = {}
         self.nEnts = 0
         import ent
-        self.entTypes = [ent.motherShip, ent.defender, ent.attacker]
+        self.entTypes = [ent.motherShip, ent.defender, ent.attacker, ent.terrain]
         self.terrainTypes = []
         #self.entTypes = [ent.CIGARETTE, ent.CVN68, ent.DDG51, ent.BOAT, ent.BOAT2, ent.SLEEK,  ent.ALIENSHIP, ent.SAILBOAT, ent.MONTEREY]
 
