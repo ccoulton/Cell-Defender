@@ -85,48 +85,56 @@ class move(Commands):
 			
 class intercept(move):
 
-	def __init__(self, Ent, target):
-		move.__init__(self, Ent)
-		self.Ent    = Ent
-		self.target = target
+    def __init__(self, Ent, target):
+        move.__init__(self, Ent)
+        self.Ent    = Ent
+        self.target = target
 		
-	def tick(self, dTime):
-	    timeToTarget = 1000
-		dist = diffDist(self.Ent.pos, self.target.pos)
-		relativeVel = self.target.vel - self.Ent.vel
-		relativeSpeed = relativeVel.length()
-		if relativeSpeed > 0:
-			timeToTarget = dist/relativeSpeed
-		else:
-			timeToTarget = dist/self.Ent.speed
-		targetLocation = self.target.pos + (relativeVel * timeToTarget)
-		diff = targetLocation - self.Ent.pos
-		self.Ent.desiredHeading = math.atan2(-diff.z, diff.x)
-		if checkDist(dist, pow(10,2)):
-			self.Ent.desiredSpeed = 0
-			self.finished = True
-		else:
-			self.Ent.desiredSpeed = self.Ent.maxSpeed
+    def tick(self, dTime):
+        timeToTarget = 1000
+        dist = diffDist(self.Ent.pos, self.target.pos) #returns Squared Distance
+        dist = math.sqrt(dist)
+        relativeVel = self.target.vel - self.Ent.vel
+        relativeSpeed = relativeVel.length()
+        if relativeSpeed > 0:
+	        timeToTarget = dist/relativeSpeed
+        elif self.Ent.speed > 0:
+	        timeToTarget = dist/self.Ent.speed
+        targetLocation = self.target.pos + (relativeVel * timeToTarget)
+        diff = targetLocation - self.Ent.pos
+        self.Ent.desiredHeading = math.atan2(-diff.z, diff.x)
+        if checkDist(dist, 10):
+	        self.Ent.desiredSpeed = 0
+	        self.finished = True
+        else:
+	        self.Ent.desiredSpeed = self.Ent.maxSpeed
 			
 class follow(move):
 
-	def __init__(self, Ent, chasedEnt):
-		move.__init__(self, Ent)
-		self.ent = Ent		
-		self.chasedEnt = chasedEnt
-		
-	def tick(self, dTime):
-		dist = diffDist(self.ent.pos, self.chasedEnt.pos)
-		relativeVel   = self.chasedEnt.vel - self.Ent.vel
-		relativeSpeed = relativeVel.length()
-		if relativeSpeed > 0:
-		    timeToTarget = dist/relativeSpeed
-		else:
-		    timeToTarget = dist/self.ent.speed
-		targetLocation = self.chasedEnt.pos + (relativeVel * timeToTarget)
-		diff = targetLocation - self.ent.pos
-		self.ent.desiredHeading = math.atan2(-diff.z, diff.x)
-		if checkDist(dist, pow(10,2)):
-		    self.ent.desiredSpeed = self.chasedEnt.speed
-		else:
-		    self.ent.desiredSpeed = self.ent.maxSpeed
+    def __init__(self, Ent, chasedEnt):
+        move.__init__(self, Ent)
+        self.ent = Ent		
+        self.chasedEnt = chasedEnt
+
+    def tick(self, dTime):
+        timeToTarget = 1000
+        dist = diffDist(self.ent.pos, self.chasedEnt.pos)
+        dist = math.sqrt(dist)
+        relativeVel   = self.chasedEnt.vel - self.Ent.vel
+        relativeSpeed = relativeVel.length()
+        if relativeSpeed > 0:
+            timeToTarget = dist/relativeSpeed
+        elif self.ent.speed > 0:
+            timeToTarget = dist/self.ent.speed
+        unitVelocity = self.chasedEnt.vel.normalisedCopy()
+        targetLocation = self.chasedEnt.pos - (unitVelocity*100)
+        diff = targetLocation - self.ent.pos
+        self.ent.desiredHeading = math.atan2(-diff.z, diff.x)
+        if checkDist(dist, 10000):
+            self.ent.desiredSpeed = self.chasedEnt.speed
+        else:
+            self.ent.desiredSpeed = self.ent.maxSpeed
+
+
+
+

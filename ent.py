@@ -43,134 +43,47 @@ class Entity:
     def __str__(self):
         x = "--------------------\nEntity: %s \nPos: %s, Vel: %s,  mesh = %s\nSpeed: %f, Heading: %f, desiredSpeed: %f, desiredHeading: %f" % (self.uiname, str(self.pos), str(self.vel), self.mesh, self.speed, self.heading, self.desiredSpeed, self.desiredHeading)
         return x
+
+
+# ENTITY TYPES
 #-----------------------------------------------------------------------------------------
-class CVN68(Entity):
+class motherShip(Entity):
     def __init__(self, engine, id, pos = Vector3(0,0,0), vel = Vector3(0, 0, 0), yaw = 0):
         Entity.__init__(self, engine, id, pos = pos, vel = vel, yaw = yaw)
-        self.mesh = 'cvn68.mesh'
-        self.uiname = 'CVN68' + str(id)
+        self.mesh = 'sphere.mesh'
+        self.uiname = 'motherShip' + str(id)
         self.acceleration = 2
         self.turningRate  = 0.1
-        self.maxSpeed = 40
+        self.maxSpeed = 25
         self.desiredSpeed = 0
         self.desiredHeading = 0
         self.speed = 0
         self.heading = 0
 #-----------------------------------------------------------------------------------------
-class CIGARETTE(Entity):
+class defender(Entity):
     def __init__(self, engine, id, pos = Vector3(0,0,0), vel = Vector3(0, 0, 0), yaw = 0):
         Entity.__init__(self, engine, id, pos = pos, vel = vel, yaw = yaw)
-        self.mesh = 'cigarette.mesh'
-        self.uiname = 'CIGARETTE' + str(id)
-        self.acceleration  = 10
-        self.turningRate   = 0.25
-        self.maxSpeed = 40
-        self.desiredSpeed = 0
-        self.desiredHeading = 0
-        self.speed = 0
-        self.heading = 0
-#-----------------------------------------------------------------------------------------
-class MONTEREY(Entity):
-    def __init__(self, engine, id, pos = Vector3(0,0,0), vel = Vector3(0, 0, 0), yaw = 0):
-        Entity.__init__(self, engine, id, pos = pos, vel = vel, yaw = yaw)
-        self.mesh = '3699_Monterey_189_92.mesh'
-        self.uiname = 'MONTEREY' + str(id)
+        self.mesh = 'cube.mesh'
+        self.uiname = 'defender' + str(id)
         self.acceleration = 5
-        self.turningRate = 0.2
-        self.maxSpeed = 35
+        self.turningRate  = 0.3
+        self.maxSpeed = 55
         self.desiredSpeed = 0
         self.desiredHeading = 0
         self.speed = 0
         self.heading = 0
 #-----------------------------------------------------------------------------------------
-class JETSKI(Entity):
+class attacker(Entity):
     def __init__(self, engine, id, pos = Vector3(0,0,0), vel = Vector3(0, 0, 0), yaw = 0):
         Entity.__init__(self, engine, id, pos = pos, vel = vel, yaw = yaw)
-        self.mesh = '4685_Personal_Watercr.mesh'
-        self.uiname = 'JETSKI' + str(id)
-        self.acceleration = 7
-        self.turningRate = 0.35
-        self.maxSpeed = 20
-        self.desiredSpeed = 0
-        self.desiredHeading = 0
-        self.speed = 0
-        self.heading = 0
-#-----------------------------------------------------------------------------------------
-class SAILBOAT(Entity):
-    def __init__(self, engine, id, pos = Vector3(0,0,0), vel = Vector3(0, 0, 0), yaw = 0):
-        Entity.__init__(self, engine, id, pos = pos, vel = vel, yaw = yaw)
-        self.mesh = 'sailboat.mesh'
-        self.uiname = 'SAILBOAT' + str(id)
-        self.acceleration = 3
-        self.turningRate = 0.2
-        self.maxSpeed = 10
-        self.desiredSpeed = 0
-        self.desiredHeading = 0
-        self.speed = 0
-        self.heading = 0
-#-----------------------------------------------------------------------------------------
-class SLEEK(Entity):
-    def __init__(self, engine, id, pos = Vector3(0,0,0), vel = Vector3(0, 0, 0), yaw = 0):
-        Entity.__init__(self, engine, id, pos = pos, vel = vel, yaw = yaw)
-        self.mesh = 'sleek.mesh'
-        self.uiname = 'SLEEK' + str(id)
-        self.acceleration = 4
-        self.turningRate = 0.2
-        self.maxSpeed = 30
-        self.desiredSpeed = 0
-        self.desiredHeading = 0
-        self.speed = 0
-        self.heading = 0
-#-----------------------------------------------------------------------------------------
-class BOAT(Entity):
-    def __init__(self, engine, id, pos = Vector3(0,0,0), vel = Vector3(0, 0, 0), yaw = 0):
-        Entity.__init__(self, engine, id, pos = pos, vel = vel, yaw = yaw)
-        self.mesh = 'boat.mesh'
-        self.uiname = 'BOAT' + str(id)
+        self.mesh = 'robot.mesh'
+        self.uiname = 'attacker' + str(id)
         self.acceleration = 5
-        self.turningRate = 0.2
-        self.maxSpeed = 30
+        self.turningRate  = 0.3
+        self.maxSpeed = 55
         self.desiredSpeed = 0
         self.desiredHeading = 0
         self.speed = 0
         self.heading = 0
 #-----------------------------------------------------------------------------------------
-class DDG51(Entity):
-    def __init__(self, engine, id, pos = Vector3(0,0,0), vel = Vector3(0, 0, 0), yaw = 0):
-        Entity.__init__(self, engine, id, pos = pos, vel = vel, yaw = yaw)
-        self.mesh = 'ddg51.mesh'
-        self.uiname = 'DDG51' + str(id)
-        self.acceleration = 5
-        self.turningRate = 0.2
-        self.maxSpeed = 32
-        self.desiredSpeed = 0
-        self.desiredHeading = 0
-        self.speed = 0
-        self.heading = 0
-#-----------------------------------------------------------------------------------------
-class ALIENSHIP(Entity):
-    def __init__(self, engine, id, pos = Vector3(0,0,0), vel = Vector3(0, 0, 0), yaw = 0):
-        Entity.__init__(self, engine, id, pos = pos, vel = vel, yaw = yaw)
-        self.mesh = 'alienship.mesh'
-        self.uiname = 'ALIEN' + str(id)
-        self.acceleration  = 10
-        self.turningRate   = 0.3
-        self.maxSpeed = 60
-        self.desiredSpeed = 0
-        self.desiredHeading = 0
-        self.speed = 0
-        self.heading = 0
-#-----------------------------------------------------------------------------------------
-class BOAT2(Entity):
-    def __init__(self, engine, id, pos = Vector3(0,0,0), vel = Vector3(0, 0, 0), yaw = 0):
-        Entity.__init__(self, engine, id, pos = pos, vel = vel, yaw = yaw)
-        self.mesh = '5086_Boat.mesh'
-        self.uiname = 'BOAT2' + str(id)
-        self.acceleration = 5
-        self.turningRate = 0.25
-        self.maxSpeed = 30
-        self.desiredSpeed = 0
-        self.desiredHeading = 0
-        self.speed = 0
-        self.heading = 0
-#-----------------------------------------------------------------------------------------
+
