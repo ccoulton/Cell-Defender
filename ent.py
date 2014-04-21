@@ -28,6 +28,7 @@ class Entity:
         self.aspects = []
         self.isSelected = False
         self.comTypes = [ai.move, ai.intercept, ai.follow]
+        self.isTerrain = False
 
     def init(self):
         self.initAspects()
@@ -65,7 +66,7 @@ class defender(Entity):
         Entity.__init__(self, engine, id, pos = pos, vel = vel, yaw = yaw)
         self.mesh = 'cube.mesh'
         self.uiname = 'defender' + str(id)
-        self.acceleration = 5
+        self.acceleration = 33
         self.turningRate  = 0.3
         self.maxSpeed = 55
         self.desiredSpeed = 0
@@ -78,7 +79,7 @@ class attacker(Entity):
         Entity.__init__(self, engine, id, pos = pos, vel = vel, yaw = yaw)
         self.mesh = 'robot.mesh'
         self.uiname = 'attacker' + str(id)
-        self.acceleration = 5
+        self.acceleration = 33
         self.turningRate  = 0.3
         self.maxSpeed = 55
         self.desiredSpeed = 0
@@ -86,4 +87,19 @@ class attacker(Entity):
         self.speed = 0
         self.heading = 0
 #-----------------------------------------------------------------------------------------
+
+class terrain(Entity):
+    def __init__(self, engine, id, pos = Vector3(0,0,0), vel = Vector3(0, 0, 0), yaw = 0):
+        Entity.__init__(self, engine, id, pos = pos, vel = vel, yaw = yaw)
+        self.mesh = 'ogrehead.mesh'
+        self.uiname = 'terrain' + str(id)
+        self.acceleration = 0
+        self.turningRate  = 0
+        self.maxSpeed = 0
+        self.desiredSpeed = 0
+        self.desiredHeading = 0
+        self.speed = 0
+        self.heading = 0
+        self.aspectTypes = [Renderer]
+        self.isTerrain = True
 

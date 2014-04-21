@@ -20,7 +20,7 @@ class InputMgr(OIS.KeyListener, OIS.MouseListener, OIS.JoyStickListener):
         self.transVector = ogre.Vector3(0, 0, 0)
         self.toggle = 0.1
         self.selectionRadius = 100
-        self.firstMove = True
+        self.startCtr = 0
 
 
 
@@ -90,7 +90,7 @@ class InputMgr(OIS.KeyListener, OIS.MouseListener, OIS.JoyStickListener):
         self.ms.height = self.engine.gfxMgr.viewPort.actualHeight
         self.mousePos = (self.ms.X.abs/float(self.ms.width), self.ms.Y.abs/float(self.ms.height))
         
-        if not self.firstMove:
+        if self.startCtr > 3:
             if self.mousePos[0] > 0.99: self.transVector.x += self.move
             if self.mousePos[0] < 0.01: self.transVector.x -= self.move
             if self.mousePos[1] > 0.99: self.transVector.z += self.move
@@ -165,7 +165,7 @@ class InputMgr(OIS.KeyListener, OIS.MouseListener, OIS.JoyStickListener):
     
        # MouseListener
     def mouseMoved(self, evt):
-        self.firstMove = False
+        self.startCtr += 1
         return True
         
     def handleBoatCommands(self, evt): #handles the Right click behaviors of the "AI"
@@ -185,10 +185,11 @@ class InputMgr(OIS.KeyListener, OIS.MouseListener, OIS.JoyStickListener):
             closest = None
             closestDistance = self.selectionRadius * self.selectionRadius
             for ent in self.engine.entityMgr.ents.values():
-                distSquared =  ent.pos.squaredDistance(pos)
-                if distSquared < closestDistance:
-                    closest = ent
-                    closestDistance = distSquared
+                if not ent.isTerrain:
+                    distSquared =  ent.pos.squaredDistance(pos)
+                    if distSquared < closestDistance:
+                        closest = ent
+                        closestDistance = distSquared
         if not self.leftShiftDown:
             self.engine.controlMgr.clearComs()
         if closest:
@@ -226,10 +227,11 @@ class InputMgr(OIS.KeyListener, OIS.MouseListener, OIS.JoyStickListener):
             closest = None
             closestDistance = self.selectionRadius * self.selectionRadius
             for ent in self.engine.entityMgr.ents.values():
-                distSquared =  ent.pos.squaredDistance(pos)
-                if distSquared < closestDistance:
-                    closest = ent
-                    closestDistance = distSquared
+                if not ent.isTerrain:
+                    distSquared =  ent.pos.squaredDistance(pos)
+                    if distSquared < closestDistance:
+                        closest = ent
+                        closestDistance = distSquared
 
             if closest: # One level deep
                 if self.leftShiftDown:
