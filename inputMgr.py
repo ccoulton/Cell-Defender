@@ -20,6 +20,7 @@ class InputMgr(OIS.KeyListener, OIS.MouseListener, OIS.JoyStickListener):
         self.transVector = ogre.Vector3(0, 0, 0)
         self.toggle = 0.1
         self.selectionRadius = 100
+        self.firstMove = True
 
 
 
@@ -80,7 +81,21 @@ class InputMgr(OIS.KeyListener, OIS.MouseListener, OIS.JoyStickListener):
         self.mouse.capture()
 
         self.keyPressed(dtime)
+
+        self.mouse.capture()
+        self.ms = self.mouse.getMouseState()
+        #print str(self.ms)
+
+        self.ms.width = self.engine.gfxMgr.viewPort.actualWidth 
+        self.ms.height = self.engine.gfxMgr.viewPort.actualHeight
+        self.mousePos = (self.ms.X.abs/float(self.ms.width), self.ms.Y.abs/float(self.ms.height))
         
+        if not self.firstMove:
+            if self.mousePos[0] > 0.99: self.transVector.x += self.move
+            if self.mousePos[0] < 0.01: self.transVector.x -= self.move
+            if self.mousePos[1] > 0.99: self.transVector.z += self.move
+            if self.mousePos[1] < 0.01: self.transVector.z -= self.move
+
         #self.camNode.yaw(ogre.Degree(-self.yawRot)
         self.camYawNode.yaw(ogre.Radian(self.yawRot))
         self.camPitchNode.pitch(ogre.Radian(self.pitchRot))
@@ -121,12 +136,12 @@ class InputMgr(OIS.KeyListener, OIS.MouseListener, OIS.JoyStickListener):
         # Right.
         if  self.keyboard.isKeyDown(OIS.KC_D):
             self.transVector.x += self.move
-        # Up.        
+        '''# Up.        
         if self.keyboard.isKeyDown(OIS.KC_PGUP):
             self.transVector.y += self.move
         # Down.
         if self.keyboard.isKeyDown(OIS.KC_PGDOWN):
-            self.transVector.y -= self.move          
+            self.transVector.y -= self.move        
 
         if self.keyboard.isKeyDown(OIS.KC_Q):
             self.yawRot = self.rotate
@@ -138,7 +153,7 @@ class InputMgr(OIS.KeyListener, OIS.MouseListener, OIS.JoyStickListener):
             self.pitchRot = self.rotate
 
         if self.keyboard.isKeyDown(OIS.KC_X):
-            self.pitchRot = -self.rotate
+            self.pitchRot = -self.rotate'''
 
         if self.keyboard.isKeyDown(OIS.KC_ESCAPE):
             self.engine.stop()
@@ -150,16 +165,17 @@ class InputMgr(OIS.KeyListener, OIS.MouseListener, OIS.JoyStickListener):
     
        # MouseListener
     def mouseMoved(self, evt):
+        self.firstMove = False
         return True
         
     def handleBoatCommands(self, evt): #handles the Right click behaviors of the "AI"
-        self.mouse.capture()
+        '''self.mouse.capture()
         self.ms = self.mouse.getMouseState()
         print str(self.ms)
 
         self.ms.width = self.engine.gfxMgr.viewPort.actualWidth 
         self.ms.height = self.engine.gfxMgr.viewPort.actualHeight
-        self.mousePos = (self.ms.X.abs/float(self.ms.width), self.ms.Y.abs/float(self.ms.height))
+        self.mousePos = (self.ms.X.abs/float(self.ms.width), self.ms.Y.abs/float(self.ms.height))'''
         mouseRay = self.engine.gfxMgr.camera.getCameraToViewportRay(*self.mousePos)
         result  =  mouseRay.intersects(self.engine.gfxMgr.groundPlane)
         if result.first:
@@ -193,13 +209,13 @@ class InputMgr(OIS.KeyListener, OIS.MouseListener, OIS.JoyStickListener):
         return True
 
     def handleMouseSelection(self, evt):
-        self.mouse.capture()
+        '''self.mouse.capture()
         self.ms = self.mouse.getMouseState()
         print str(self.ms)
 
         self.ms.width = self.engine.gfxMgr.viewPort.actualWidth 
         self.ms.height = self.engine.gfxMgr.viewPort.actualHeight
-        self.mousePos = (self.ms.X.abs/float(self.ms.width), self.ms.Y.abs/float(self.ms.height))
+        self.mousePos = (self.ms.X.abs/float(self.ms.width), self.ms.Y.abs/float(self.ms.height))'''
         mouseRay = self.engine.gfxMgr.camera.getCameraToViewportRay(*self.mousePos)
         result  =  mouseRay.intersects(self.engine.gfxMgr.groundPlane)
 
@@ -233,62 +249,5 @@ class InputMgr(OIS.KeyListener, OIS.MouseListener, OIS.JoyStickListener):
         return True
     def axisMoved(self, evt, axis):
         return True
-
-#---------------------------------------------------------------------------------------------------
-
-
-    # def handleCameraMovement(self, dtime):
-
-    #     #print "handling camera"w
-
-    #     # Move the camera using keyboard input.
-    #     transVector = ogre.Vector3 (0, 0, 0)
-    #     # Move Forward.
-    #     if self.keyboard.isKeyDown(OIS.KC_W):
-    #        transVector.z -= self.move
-    #     # Move Backward.
-    #     if self.keyboard.isKeyDown(OIS.KC_S):
-    #         transVector.z += self.move
-    #     # Strafe Left.
-    #     if self.keyboard.isKeyDown(OIS.KC_A):
-    #         transVector.x -= self.move
-    #     # Strafe Right.
-    #     if  self.keyboard.isKeyDown(OIS.KC_D):
-    #        transVector.x += self.move
-    #     # Move Up.        
-    #     if self.keyboard.isKeyDown(OIS.KC_PGUP):
-    #         transVector.y += self.move
-    #     # Move Down.
-    #     if self.keyboard.isKeyDown(OIS.KC_PGDOWN):
-    #         transVector.y -= self.move
-    #     # Translate the camera based on time.
-    #     self.camYawNode.translate(self.camYawNode.orientation
-    #                               * transVector
-    #                               * dtime)
-
-    #     # Pitch Up.        
-    #     if self.keyboard.isKeyDown(OIS.KC_Z):
-    #         self.camPitchNode.pitch(ogre.Radian(0.3 * dtime))
-    #     # Pitch Down.
-    #     if self.keyboard.isKeyDown(OIS.KC_X):
-    #         self.camPitchNode.pitch(ogre.Radian(-0.3 * dtime))
-
-    #     # Pitch Up.        
-    #     if self.keyboard.isKeyDown(OIS.KC_Q):
-    #         self.camYawNode.yaw(ogre.Radian(0.3 * dtime))
-    #     # Pitch Down.
-    #     if self.keyboard.isKeyDown(OIS.KC_E):
-    #         self.camYawNode.yaw(ogre.Radian(-0.3 * dtime))
-
-
-
-    # def handleQuit(self, dtime):
-
-    #     if (self.keyboard.isKeyDown(OIS.KC_ESCAPE)):
-    #         self.engine.stop()
-
-    
-        
-        
 
 
