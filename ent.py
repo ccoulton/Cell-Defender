@@ -38,6 +38,7 @@ class Entity:
             self.aspects.append(aspType(self))
         
     def tick(self, dtime):
+        print "%s Tick" % self.uiname
         for aspect in self.aspects:
             aspect.tick(dtime)
 
@@ -75,6 +76,8 @@ class defender(Entity):
         self.heading = 0
 #-----------------------------------------------------------------------------------------
 class attacker(Entity):
+    Ogre_Ent = None
+    animationState = None
     def __init__(self, engine, id, pos = Vector3(0,0,0), vel = Vector3(0, 0, 0), yaw = 0):
         Entity.__init__(self, engine, id, pos = pos, vel = vel, yaw = yaw)
         self.mesh = 'robot.mesh'
@@ -86,6 +89,28 @@ class attacker(Entity):
         self.desiredHeading = 0
         self.speed = 0
         self.heading = 0
+        
+	def init(self):
+		self.initAspects()
+		print 'Attacker init'
+		self.Ogre_Ent = self.engine.gfxMgr.sceneManager.getEntity(self.uiname)
+		self.animationState = self.Ogre_Ent.getAnimationState('Walk')
+		self.animationState.setLoop(True)
+		self.animationState.setEnabled(True)
+
+	def tick(self, dtime):
+		if (self.speed > 0):
+			self.animationState = self.Ogre_Ent.getAnimationState('Walk')
+			print 'Walking'
+		else:
+			self.animationState = self.Ogre_Ent.getAnimationState('Idle')
+			print 'Idle'
+		self.animationState.setLoop(True)
+		self.animationState.setEnabled(True)
+		self.animationState.addTime(dtime)
+		
+		for aspect in self.aspects:
+			aspect.tick(dtime)
 #-----------------------------------------------------------------------------------------
 
 class terrain(Entity):
