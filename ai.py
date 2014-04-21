@@ -15,27 +15,45 @@ def diffDist(pos1, pos2):
 	
 class commandMgr:
 
-	def __init__(self, Ent):
+    def __init__(self, Ent):
 		self.Ent = Ent
 		self.commands = []
 		
-	def tick(self, dTime):
+    def tick(self, dTime):
 		if len(self.commands) > 0:
 			if self.commands[0].finished == True:
-				self.commands.pop(0)
+				self.comFinished()
 			else:
 				self.commands[0].tick(dTime)		
 		
 		
-	def addCom(self, comType):
+    def addCom(self, comType):
 		self.commands.append(comType)
 	
-	def comFinished(self):
-		if len(self.commmands) > 0:
-			self.commands.pop(0)
+    def comFinished(self):
+        if len(self.commands) > 0:
+            self.commands.pop(0)
+            self.Ent.desiredSpeed = 0
 	
-	def clearComs(self):
-		self.commands[:] = []
+    def clearComs(self):
+        self.commands[:] = []
+
+class motherShipCommandMgr(commandMgr):
+
+	def __init__(self, Ent):
+		self.Ent = Ent
+		self.commands = [move(self.Ent, Vector3(0,0,500)), move(self.Ent, Vector3(500,0,500))]
+		
+	def tick(self, dTime):
+		if len(self.commands) > 0:
+			if self.commands[0].finished == True:
+				self.comFinished()
+			else:
+				self.commands[0].tick(dTime)
+		
+		
+	def addCom(self, comType):
+		pass
 		
 class Commands:
 	
@@ -74,7 +92,7 @@ class move(Commands):
 		if self.currEnt.speed > 0:
 			stopDist = dist/self.currEnt.speed
 		shipStop = self.currEnt.speed/self.currEnt.acceleration
-		if checkDist(dist, pow(10,2)):
+		if checkDist(dist, 100):
 			self.finished = True
 		else:
 			#ori = self.currEnt.node.getOrientation()* Vector3(1,0,0)#gets ogre unit orienation of node

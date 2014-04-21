@@ -12,6 +12,8 @@ class Renderer:
         print "Rendering seting up for: ", str(self.ent)
         self.gent =  self.ent.engine.gfxMgr.sceneManager.createEntity(self.ent.uiname + "_ogreEnt", self.ent.mesh)
         self.node =  self.ent.engine.gfxMgr.sceneManager.getRootSceneNode().createChildSceneNode(self.ent.uiname + 'node', ent.pos)
+        if self.ent.mesh == 'sphere.mesh':
+            self.gent.setMaterialName ('Examples/chrome')
         self.node.attachObject(self.gent)
         """self.animationState = ent.getAnimationState('Idle')
         self.animationState.setLoop(True)
