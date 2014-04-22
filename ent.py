@@ -90,28 +90,7 @@ class attacker(Entity):
         self.desiredHeading = 0
         self.speed = 0
         self.heading = 0
-        
-	def init(self):
-		self.initAspects()
-		print 'Attacker init'
-		self.Ogre_Ent = self.engine.gfxMgr.sceneManager.getEntity(self.uiname)
-		self.animationState = self.Ogre_Ent.getAnimationState('Walk')
-		self.animationState.setLoop(True)
-		self.animationState.setEnabled(True)
-
-	def tick(self, dtime):
-		if (self.speed > 0):
-			self.animationState = self.Ogre_Ent.getAnimationState('Walk')
-			print 'Walking'
-		else:
-			self.animationState = self.Ogre_Ent.getAnimationState('Idle')
-			print 'Idle'
-		self.animationState.setLoop(True)
-		self.animationState.setEnabled(True)
-		self.animationState.addTime(dtime)
-		
-		for aspect in self.aspects:
-			aspect.tick(dtime)
+        self.aspectTypes = [Physics, Renderer, ai.attackerCmdMgr]
 #-----------------------------------------------------------------------------------------
 
 class terrain(Entity):

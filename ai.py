@@ -40,21 +40,39 @@ class commandMgr:
 
 class motherShipCommandMgr(commandMgr):
 
-	def __init__(self, Ent):
-		self.Ent = Ent
-		self.commands = [move(self.Ent, Vector3(0,0,500)), move(self.Ent, Vector3(500,0,500))]
-		
-	def tick(self, dTime):
-		if len(self.commands) > 0:
-			if self.commands[0].finished == True:
-				self.comFinished()
-			else:
-				self.commands[0].tick(dTime)
-		
-		
-	def addCom(self, comType):
-		pass
-		
+    def __init__(self, Ent):
+	    self.Ent = Ent
+	    self.commands = [move(self.Ent, Vector3(0,0,500)), move(self.Ent, Vector3(500,0,500)), move(self.Ent, Vector3(500,0,-500)), move(self.Ent, Vector3(0,0,-500)), move(self.Ent, Vector3(0,0,0)) ]
+
+    def addCom(self, comType):
+	    pass
+
+class attackerCmdMgr(commandMgr):
+    
+    def __init__(self, Ent):
+        self.Ent = Ent
+        self.target = self.Ent.engine.entityMgr.ents[0]
+        print "robot setup"
+        print Ent.engine.entityMgr.nEnts
+        self.commands = [intercept(self.Ent, self.target)]
+        #self.Ogre_Ent = Ent.engine.gfxMgr.sceneManager.getEntity(self.Ent.uiname)
+        #self.animationState = self.Ogre_Ent.getAnimationState('Idle')
+        
+    def tick(self, dTime):
+        #self.checkTarget() #can add to change targets
+        print "robot tick"
+        if len(self.commands) > 0:
+            if self.commands[0].finished == True:
+                self.comFinished()
+                #self.animateDeath()
+            else:
+                self.commands[0].tick(dTime)
+            #self.animationState.addTime(dtime)
+            
+    def checkTarget(self):
+        dist = diffDist(self.Ent.pos, self.target.pos)
+        return
+		 
 class Commands:
 	
 	def __init__(self, Ent):
@@ -74,7 +92,7 @@ class Commands:
 	
 	def clearComs(self):
 		self.commands[:] = []'''
-				
+						
 class move(Commands):
 
 	def __init__(self, currEnt, desiredPoint = Vector3(0,0,0)):
@@ -100,7 +118,7 @@ class move(Commands):
 				self.currEnt.desiredSpeed = 0
 			else:
 				self.currEnt.desiredSpeed = self.currEnt.maxSpeed
-			
+							
 class intercept(move):
 
     def __init__(self, Ent, target):

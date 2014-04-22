@@ -1,4 +1,6 @@
 from vector import Vector3
+import ogre.renderer.OGRE as ogre
+import time
 
 
 class GameMgr:
@@ -8,7 +10,15 @@ class GameMgr:
         pass
 
     def init(self):
+        self.titleScreen()
         self.loadLevel()
+
+    def titleScreen(self):
+        screen = ogre.Rectangle2D(True)
+        screen.setCorners(-1.0,1.0,1.0,-1.0)
+        screen.setMaterial('Examples/RustySteel')
+        time.sleep(4)
+
 
 
     def loadLevel(self):
