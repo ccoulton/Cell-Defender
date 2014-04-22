@@ -136,14 +136,14 @@ class InputMgr(OIS.KeyListener, OIS.MouseListener, OIS.JoyStickListener):
         # Right.
         if  self.keyboard.isKeyDown(OIS.KC_D):
             self.transVector.x += self.move
-        '''# Up.        
+        # Up.        
         if self.keyboard.isKeyDown(OIS.KC_PGUP):
             self.transVector.y += self.move
         # Down.
         if self.keyboard.isKeyDown(OIS.KC_PGDOWN):
             self.transVector.y -= self.move        
 
-        if self.keyboard.isKeyDown(OIS.KC_Q):
+        '''if self.keyboard.isKeyDown(OIS.KC_Q):
             self.yawRot = self.rotate
 
         if self.keyboard.isKeyDown(OIS.KC_E):

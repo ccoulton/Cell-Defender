@@ -15,7 +15,6 @@ class EntityMgr:
         #self.entTypes = [ent.CIGARETTE, ent.CVN68, ent.DDG51, ent.BOAT, ent.BOAT2, ent.SLEEK,  ent.ALIENSHIP, ent.SAILBOAT, ent.MONTEREY]
 
 
-
     def createEnt(self, entType, pos = Vector3(0,0,0), yaw = 0):
         ent = entType(self.engine, self.nEnts, pos = pos, yaw = yaw)
         print "EntMgr created: ", ent.uiname, ent.eid, self.nEnts

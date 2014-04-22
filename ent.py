@@ -29,7 +29,8 @@ class Entity:
         self.isSelected = False
         self.comTypes = [ai.move, ai.intercept, ai.follow]
         self.isTerrain = False
-
+        self.toRender = True
+        
     def init(self):
         self.initAspects()
 
@@ -39,8 +40,12 @@ class Entity:
         
     def tick(self, dtime):
         #print "%s Tick" % self.uiname
-        for aspect in self.aspects:
-            aspect.tick(dtime)
+        if self.toRender == False:
+            self.aspects[1].node.setVisible(False)
+        else:
+            for aspect in self.aspects:
+                aspect.tick(dtime)
+        
 
     def __str__(self):
         x = "--------------------\nEntity: %s \nPos: %s, Vel: %s,  mesh = %s\nSpeed: %f, Heading: %f, desiredSpeed: %f, desiredHeading: %f" % (self.uiname, str(self.pos), str(self.vel), self.mesh, self.speed, self.heading, self.desiredSpeed, self.desiredHeading)
@@ -85,7 +90,7 @@ class attacker(Entity):
         self.uiname = 'attacker' + str(id)
         self.acceleration = 33
         self.turningRate  = 0.7
-        self.maxSpeed = 55
+        self.maxSpeed = 70
         self.desiredSpeed = 0
         self.desiredHeading = 0
         self.speed = 0
