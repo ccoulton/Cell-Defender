@@ -15,12 +15,22 @@ class Renderer:
         if self.ent.mesh == 'sphere.mesh':
             self.gent.setMaterialName ('Examples/chrome')
         self.node.attachObject(self.gent)
-        """self.animationState = ent.getAnimationState('Idle')
-        self.animationState.setLoop(True)
-        self.animationState.setEnabled(True)"""
+    
+    def checkPos(self):
+        raySceneQuery = self.ent.engine.gfxMgr.sceneManager.createRayQuery(ogre.Ray())
+        updateRay = ogre.Ray()
+        updateRay.setOrigin(self.ent.pos + ogre.Vector3(0,5,0))
+        updateRay.setDirection(ogre.Vector3().NEGATIVE_UNIT_Y)
+        raySceneQuery.Ray = updateRay
+        for queryResult in raySceneQuery.execute():
+            if queryResult.worldFragment is not None:
+                self.ent.y = self.ent.y - queryResult.distance + 40
+                break
+        
         
     def tick(self, dtime):
         #----------update scene node position and orientation-----------------------------------
+        self.checkPos()
         self.node.setPosition(self.ent.pos)
         self.node.resetOrientation()
         self.node.yaw(ogre.Radian(self.ent.heading))

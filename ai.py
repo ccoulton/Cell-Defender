@@ -41,26 +41,32 @@ class commandMgr:
 class motherShipCommandMgr(commandMgr):
 
     def __init__(self, Ent):
-	    self.Ent = Ent
-	    self.commands = [move(self.Ent, Vector3(0,0,500)), move(self.Ent, Vector3(500,0,500)), move(self.Ent, Vector3(500,0,-500)), move(self.Ent, Vector3(0,0,-500)), move(self.Ent, Vector3(0,0,0)) ]
+        self.Ent = Ent
+        self.commands = [move(self.Ent, Vector3(0,0,500)), move(self.Ent, Vector3(500,0,500)), move(self.Ent, Vector3(500,0,-500)), move(self.Ent, Vector3(0,0,-500)), move(self.Ent, Vector3(0,0,0)) ]
 
     def addCom(self, comType):
-	    pass
+        pass
+
+    def clearComs(self):
+        pass
 
 class attackerCmdMgr(commandMgr):
     
     def __init__(self, Ent):
         self.Ent = Ent
         self.target = self.Ent.engine.entityMgr.ents[0]
-        print "robot setup"
-        print Ent.engine.entityMgr.nEnts
         self.commands = [intercept(self.Ent, self.target)]
         #self.Ogre_Ent = Ent.engine.gfxMgr.sceneManager.getEntity(self.Ent.uiname)
         #self.animationState = self.Ogre_Ent.getAnimationState('Idle')
-        
+        self.deathtimer = 0
+    
+    def addCom(self, comType):
+        pass
+    
+    def clearComs(self):
+        pass
+          
     def tick(self, dTime):
-        #self.checkTarget() #can add to change targets
-        print "robot tick"
         if len(self.commands) > 0:
             if self.commands[0].finished == True:
                 self.comFinished()
@@ -68,7 +74,11 @@ class attackerCmdMgr(commandMgr):
             else:
                 self.commands[0].tick(dTime)
             #self.animationState.addTime(dtime)
-            
+        if len(self.commands) == 0:
+            self.deathtimer +=1
+            if self.deathtimer == 10:
+                self.Ent.toRender == False
+                  
     def checkTarget(self):
         dist = diffDist(self.Ent.pos, self.target.pos)
         return
@@ -101,7 +111,7 @@ class move(Commands):
 		self.desiredPoint = desiredPoint
 		#self.addCom(move)
 		self.finished = False
-		
+        
 	def tick(self, dTime):
 		stopDist = 1000
 		dist = diffDist(self.currEnt.pos, self.desiredPoint) #scalar distance
