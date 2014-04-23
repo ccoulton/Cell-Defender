@@ -239,7 +239,7 @@ class InputMgr(OIS.KeyListener, OIS.MouseListener, OIS.JoyStickListener):
             closest = None
             closestDistance = self.selectionRadius * self.selectionRadius
             for ent in self.engine.entityMgr.ents.values():
-                if not ent.isTerrain:
+                if not ent.isTerrain and not ent.isAttacker:
                     distSquared =  ent.pos.squaredDistance(pos)
                     if distSquared < closestDistance:
                         closest = ent
