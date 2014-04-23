@@ -5,7 +5,7 @@ from vector        import Vector3
 from physics       import Physics
 from render        import Renderer
 import ai
-
+from animation     import AnimationMgr
 #-----------------------------------------------------------------------------------------
 class Entity:
     pos  = Vector3(0, 0, 0)
@@ -39,12 +39,8 @@ class Entity:
             self.aspects.append(aspType(self))
         
     def tick(self, dtime):
-        #print "%s Tick" % self.uiname
-        if self.toRender == False:
-            self.aspects[1].node.setVisible(False)
-        else:
-            for aspect in self.aspects:
-                aspect.tick(dtime)
+        for aspect in self.aspects:
+            aspect.tick(dtime)
         
 
     def __str__(self):
@@ -95,7 +91,7 @@ class attacker(Entity):
         self.desiredHeading = 0
         self.speed = 0
         self.heading = 0
-        self.aspectTypes = [Physics, Renderer, ai.attackerCmdMgr]
+        self.aspectTypes = [Physics, Renderer, ai.attackerCmdMgr, AnimationMgr]
 #-----------------------------------------------------------------------------------------
 
 class terrain(Entity):

@@ -12,6 +12,7 @@ class EntityMgr:
         import ent
         self.entTypes = [ent.motherShip, ent.defender, ent.attacker, ent.terrain]
         self.terrainTypes = []
+        self.rEnts = []
         #self.entTypes = [ent.CIGARETTE, ent.CVN68, ent.DDG51, ent.BOAT, ent.BOAT2, ent.SLEEK,  ent.ALIENSHIP, ent.SAILBOAT, ent.MONTEREY]
 
 
@@ -25,6 +26,11 @@ class EntityMgr:
 
 
     def tick(self, dt):
+        for rement in self.rEnts:
+            self.ents.remove(rement)
+            #Ogre Forum link to remove ents and movable things
+            #http://www.ogre3d.org/forums/viewtopic.php?f=2&t=53647&start=0
+        self.rEnts = []
         for eid, ent in self.ents.iteritems():
             ent.tick(dt)
         

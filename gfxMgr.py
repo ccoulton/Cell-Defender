@@ -90,4 +90,3 @@ class GfxMgr:
     #def cleanUp(self):
     def stop(self):
         del self.root
-
