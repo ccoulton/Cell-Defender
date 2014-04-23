@@ -15,7 +15,7 @@ class AnimationMgr:
         self.animationState.addTime(dTime)
         if self.Ent.speed > 0:
             self.AnimateWalk()
-        elif self.Ent.aspects[2].deathtimer >0:
+        elif self.Ent.aspects[2].deathtimer > 0:
             if self.Ent.aspects[2].deathtimer >= 10:
                 self.AnimateDie()
                 #self.Ent.pos = Vector3(self.Ent.pos.x, -7, self.Ent.pos.z) # could be  acool thing to do

@@ -42,7 +42,7 @@ class Renderer:
     def tick(self, dtime):
         #----------update scene node position and orientation-----------------------------------
         if self.ent.toRender == True:
-            self.checkPos()
+            #self.checkPos()
             self.node.setPosition(self.ent.pos)
             self.node.resetOrientation()
             self.node.yaw(ogre.Radian(self.ent.heading))
