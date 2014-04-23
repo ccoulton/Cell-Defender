@@ -56,8 +56,6 @@ class attackerCmdMgr(commandMgr):
         self.Ent = Ent
         self.target = self.Ent.engine.entityMgr.ents[0]
         self.commands = [intercept(self.Ent, self.target)]
-        #self.Ogre_Ent = Ent.engine.gfxMgr.sceneManager.getEntity(self.Ent.uiname)
-        #self.animationState = self.Ogre_Ent.getAnimationState('Idle')
         self.deathtimer = 0
     
     def addCom(self, comType):
@@ -70,10 +68,8 @@ class attackerCmdMgr(commandMgr):
         if len(self.commands) > 0:
             if self.commands[0].finished == True:
                 self.comFinished()
-                #self.animateDeath()
             else:
                 self.commands[0].tick(dTime)
-            #self.animationState.addTime(dtime)
         if len(self.commands) == 0:
             self.deathtimer +=1
             if self.deathtimer == 10:
@@ -92,17 +88,7 @@ class Commands:
 	def tick(self, dTime):
 		if len(self.commands) > 0:
 			self.commands[0].tick(dTime)
-		
-	'''def addCom(self, comType):
-		self.commands.append(comType)
-	
-	def comFinished(self):
-		if len(self.commmands) > 0:
-			self.commands.pop(0)
-	
-	def clearComs(self):
-		self.commands[:] = []'''
-						
+			
 class move(Commands):
 
 	def __init__(self, currEnt, desiredPoint = Vector3(0,0,0)):
@@ -123,7 +109,6 @@ class move(Commands):
 		if checkDist(dist, 100):
 			self.finished = True
 		else:
-			#ori = self.currEnt.node.getOrientation()* Vector3(1,0,0)#gets ogre unit orienation of node
 			if stopDist <= shipStop:
 				self.currEnt.desiredSpeed = 0
 			else:

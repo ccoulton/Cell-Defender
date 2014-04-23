@@ -30,25 +30,18 @@ class Renderer:
         
     def tick(self, dtime):
         #----------update scene node position and orientation-----------------------------------
-        self.checkPos()
-        self.node.setPosition(self.ent.pos)
-        self.node.resetOrientation()
-        self.node.yaw(ogre.Radian(self.ent.heading))
-        if self.isMoving():
-            pass
-            #self.animationState = self.ent.getAnimationState('Walk')
-        else:
-            pass
-            #self.animationState = self.ent.getAnimationState('Idle')
-            
-        if self.ent.isSelected:
-            self.node.showBoundingBox(True)
-        else:
-            self.node.showBoundingBox(False)
-        #self.animationState.addTime(dtime)
+        if self.ent.toRender == True:
+            self.checkPos()
+            self.node.setPosition(self.ent.pos)
+            self.node.resetOrientation()
+            self.node.yaw(ogre.Radian(self.ent.heading))
+            if self.ent.isSelected:
+                self.node.showBoundingBox(True)
+            else:
+                self.node.showBoundingBox(False)
         
-    def isMoving(self):
-        if self.ent.speed > 0:
-            return True
+        elif self.ent.aspects[2].deathtimer >= 20:
+            pass
+        
         else:
-            return False
+            pass
