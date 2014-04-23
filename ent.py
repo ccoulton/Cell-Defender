@@ -31,6 +31,7 @@ class Entity:
         self.isTerrain = False
         self.toRender = True
         self.isDefender = False
+        self.isAttacker = False
         
     def init(self):
         self.initAspects()
@@ -71,7 +72,7 @@ class defender(Entity):
         self.mesh = 'cube.mesh'
         self.uiname = 'defender' + str(id)
         self.acceleration = 33
-        self.turningRate  = 0.7
+        self.turningRate  = 1.1
         self.maxSpeed = 65
         self.desiredSpeed = 0
         self.desiredHeading = 0
@@ -95,6 +96,7 @@ class attacker(Entity):
         self.speed = 0
         self.heading = 0
         self.aspectTypes = [Physics, Renderer, ai.attackerCmdMgr, AnimationMgr]
+        self.isAttacker = True
 #-----------------------------------------------------------------------------------------
 
 class terrain(Entity):

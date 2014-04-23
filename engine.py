@@ -17,6 +17,10 @@ class Engine(object):
         import gfxMgr
         self.gfxMgr = gfxMgr.GfxMgr(self)
         self.gfxMgr.init()
+        
+        import sndMgr
+        self.sndMgr = sndMgr.SndMgr(self)
+        self.sndMgr.init()
 
         import netMgr
         self.netMgr = netMgr.NetMgr(self)
