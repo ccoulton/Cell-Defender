@@ -12,8 +12,19 @@ class Renderer:
         print "Rendering seting up for: ", str(self.ent)
         self.gent =  self.ent.engine.gfxMgr.sceneManager.createEntity(self.ent.uiname + "_ogreEnt", self.ent.mesh)
         self.node =  self.ent.engine.gfxMgr.sceneManager.getRootSceneNode().createChildSceneNode(self.ent.uiname + 'node', ent.pos)
-        if self.ent.mesh == 'sphere.mesh':
-            self.gent.setMaterialName ('Examples/chrome')
+
+        if self.ent.isDefender == True:
+            if self.ent.defenderNum == 1:
+                self.gent.setMaterialName('Examples/oneDefender')
+            elif self.ent.defenderNum == 2:
+                self.gent.setMaterialName('Examples/twoDefender')
+            elif self.ent.defenderNum == 3:
+                self.gent.setMaterialName('Examples/threeDefender')
+            elif self.ent.defenderNum == 4:
+                self.gent.setMaterialName('Examples/fourDefender')
+        elif self.ent.uiname == 'motherShip0':
+                self.gent.setMaterialName('Examples/mothership')
+
         self.node.attachObject(self.gent)
     
     def checkPos(self):

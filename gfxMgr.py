@@ -78,7 +78,7 @@ class GfxMgr:
         self.sceneManager.setSkyBox (True, "Examples/SpaceSkyBox", 50000, False)
         self.camYawNode = self.sceneManager.getRootSceneNode().createChildSceneNode('CamNode1',
                                                                     #(-400, 200, 400))
-                                                                    (0, 1000, 1000))
+                                                                    (0, 2000, 2000))
         #node.yaw(ogre.Degree(-45))
         self.camYawNode.yaw(ogre.Degree(0))
         self.camera.lookAt((0,-50,0))

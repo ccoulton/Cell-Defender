@@ -1,5 +1,6 @@
 from vector import Vector3
 
+SPAWN_DISTANCE = 500
 
 class EntityMgr:
     def __init__(self, engine):
@@ -9,6 +10,8 @@ class EntityMgr:
     def init(self):
         self.ents = {}
         self.nEnts = 0
+        self.defenders = []
+        self.nDefenders = 0
         import ent
         self.entTypes = [ent.motherShip, ent.defender, ent.attacker, ent.terrain]
         self.terrainTypes = []
@@ -23,6 +26,38 @@ class EntityMgr:
         self.ents[self.nEnts] = ent;
         self.nEnts = self.nEnts + 1
         return ent
+
+
+    def createDefender(self, entType, pos = Vector3(0,0,0), defenderNum = 0):
+        ent = entType(self.engine, self.nEnts, pos = pos, defenderNum = defenderNum)
+        print "EntMgr created: ", ent.uiname, ent.eid, self.nEnts
+        ent.init()
+        self.ents[self.nEnts] = ent;
+        self.nEnts = self.nEnts + 1
+        return ent
+
+
+
+    def createDefenders(self, entType):
+        defender1 = self.createDefender(entType, pos = Vector3(0,0,-SPAWN_DISTANCE), defenderNum = 1)
+        defender1.defenderNum = 0
+        defender2 = self.createDefender(entType, pos = Vector3(SPAWN_DISTANCE,0,0) , defenderNum = 2)
+        defender3 = self.createDefender(entType, pos = Vector3(0,0,SPAWN_DISTANCE) , defenderNum = 3)
+        defender4 = self.createDefender(entType, pos = Vector3(-SPAWN_DISTANCE,0,0), defenderNum = 4)
+
+        defender1.defenderNum = 1
+        defender2.defenderNum = 2
+        defender3.defenderNum = 3
+        defender4.defenderNum = 4
+
+        self.defenders.append(defender1)
+        self.nDefenders = self.nDefenders + 1
+        self.defenders.append(defender2)
+        self.nDefenders = self.nDefenders + 1
+        self.defenders.append(defender3)
+        self.nDefenders = self.nDefenders + 1
+        self.defenders.append(defender4)
+        self.nDefenders = self.nDefenders + 1
 
 
     def tick(self, dt):

@@ -35,15 +35,20 @@ class GameMgr:
         
 #level 1-------------------------------
     def game1(self):
+        import ent
         x = 0
         self.spawnNum = 1
         self.spawnCount = 1
         self.updateTimer = 0
         for entType in self.engine.entityMgr.entTypes:
             print "GameMgr Creating", str(entType)
-            ent = self.engine.entityMgr.createEnt(entType, pos = Vector3(x, 0, 0))
-            print "GameMgr Created: ", ent.uiname, ent.eid
-            x += 300
+            if str(entType) == 'ent.defender':
+                self.engine.entityMgr.createDefenders(entType)
+                print "GameMgr Created: denfenders (1-4)"
+            else:
+                ent = self.engine.entityMgr.createEnt(entType, pos = Vector3(x, 0, 0))
+                print "GameMgr Created: ", ent.uiname, ent.eid
+                x += 500
 #level 2--------------------------------           
     def game2(self):
         x = 0
@@ -66,6 +71,7 @@ class GameMgr:
     def tick(self, dt):
         self.updateTimer += 1
         if self.updateTimer % 500 == 0:
+        #if self.updateTimer % (1000/self.spawnCount) == 0:
             self.spawnEnemy()
 
     def stop(self):
