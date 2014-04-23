@@ -1,6 +1,11 @@
 from vector	 import Vector3
 import math
 
+def smallest(dist1, dist2):
+    if dist1 > dist2:
+        return dist2
+    return dist1
+
 def checkDist(distance, seperation):
 	if distance <= seperation:
 		return True
@@ -70,6 +75,7 @@ class attackerCmdMgr(commandMgr):
                 self.comFinished()
             else:
                 self.commands[0].tick(dTime)
+                self.checkTarget()
         if len(self.commands) == 0:
             self.deathtimer +=1
             if self.deathtimer == 10:
@@ -77,7 +83,14 @@ class attackerCmdMgr(commandMgr):
                   
     def checkTarget(self):
         dist = diffDist(self.Ent.pos, self.target.pos)
-        return
+        closestDefenderDist = 9999
+        for defender in self.Ent.engine.entityMgr.defenders:
+            currentDist = diffDist(self.Ent.pos, defender.pos)
+            if closestDefenderDist > currentDist:
+                closestDefenderDist = currentDist
+        smallestDist = smallest(dist, closestDefenderDist)
+        if checkDist(smallestDist, 4000):
+            self.comFinished()
 		 
 class Commands:
 	
@@ -134,7 +147,7 @@ class intercept(move):
         targetLocation = self.target.pos + (relativeVel * timeToTarget)
         diff = targetLocation - self.Ent.pos
         self.Ent.desiredHeading = math.atan2(-diff.z, diff.x)
-        if checkDist(dist, 10):
+        if checkDist(dist, 100):
 	        self.Ent.desiredSpeed = 0
 	        self.finished = True
         else:

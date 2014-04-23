@@ -178,7 +178,7 @@ class InputMgr(OIS.KeyListener, OIS.MouseListener, OIS.JoyStickListener):
         self.startCtr += 1
         return True
         
-    def handleBoatCommands(self, evt): #handles the Right click behaviors of the "AI"
+    def handleMovementCommands(self, evt): #handles the Right click behaviors of the "AI"
         '''self.mouse.capture()
         self.ms = self.mouse.getMouseState()
         print str(self.ms)
@@ -203,12 +203,14 @@ class InputMgr(OIS.KeyListener, OIS.MouseListener, OIS.JoyStickListener):
         if not self.leftShiftDown:
             self.engine.controlMgr.clearComs()
         if closest:
-            if self.leftControlDown:
+            #intercept
+            self.engine.controlMgr.addInter(closest)
+            '''if self.leftControlDown:
                 #intercept
                 self.engine.controlMgr.addInter(closest)
             else:
                 #follow
-                self.engine.controlMgr.addFollow(closest)
+                self.engine.controlMgr.addFollow(closest)'''
         else:
             self.engine.controlMgr.addMove(pos)
             
@@ -216,7 +218,7 @@ class InputMgr(OIS.KeyListener, OIS.MouseListener, OIS.JoyStickListener):
         if id == OIS.MB_Left:
             self.handleMouseSelection(evt)
         elif id == OIS.MB_Right:
-        	self.handleBoatCommands(evt)
+        	self.handleMovementCommands(evt)
         return True
 
     def handleMouseSelection(self, evt):

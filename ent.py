@@ -72,7 +72,7 @@ class defender(Entity):
         self.uiname = 'defender' + str(id)
         self.acceleration = 33
         self.turningRate  = 0.7
-        self.maxSpeed = 55
+        self.maxSpeed = 65
         self.desiredSpeed = 0
         self.desiredHeading = 0
         self.speed = 0
@@ -89,7 +89,7 @@ class attacker(Entity):
         self.uiname = 'attacker' + str(id)
         self.acceleration = 33
         self.turningRate  = 0.7
-        self.maxSpeed = 70
+        self.maxSpeed = 50
         self.desiredSpeed = 0
         self.desiredHeading = 0
         self.speed = 0
