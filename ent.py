@@ -30,6 +30,7 @@ class Entity:
         self.comTypes = [ai.move, ai.intercept, ai.follow]
         self.isTerrain = False
         self.toRender = True
+        self.isDefender = False
         
     def init(self):
         self.initAspects()
@@ -65,7 +66,7 @@ class motherShip(Entity):
         self.aspectTypes = [Physics, Renderer, ai.motherShipCommandMgr]
 #-----------------------------------------------------------------------------------------
 class defender(Entity):
-    def __init__(self, engine, id, pos = Vector3(0,0,0), vel = Vector3(0, 0, 0), yaw = 0):
+    def __init__(self, engine, id, pos = Vector3(0,0,0), vel = Vector3(0, 0, 0), yaw = 0, defenderNum = 0):
         Entity.__init__(self, engine, id, pos = pos, vel = vel, yaw = yaw)
         self.mesh = 'cube.mesh'
         self.uiname = 'defender' + str(id)
@@ -76,6 +77,8 @@ class defender(Entity):
         self.desiredHeading = 0
         self.speed = 0
         self.heading = 0
+        self.isDefender = True
+        self.defenderNum = defenderNum
 #-----------------------------------------------------------------------------------------
 class attacker(Entity):
     Ogre_Ent = None
@@ -108,4 +111,5 @@ class terrain(Entity):
         self.heading = 0
         self.aspectTypes = [Renderer]
         self.isTerrain = True
+        
 

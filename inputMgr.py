@@ -158,6 +158,16 @@ class InputMgr(OIS.KeyListener, OIS.MouseListener, OIS.JoyStickListener):
         if self.keyboard.isKeyDown(OIS.KC_ESCAPE):
             self.engine.stop()
 
+        # defender selection through hotkeys
+        if self.keyboard.isKeyDown(OIS.KC_1):
+            self.engine.selectionMgr.selectEnt(self.engine.entityMgr.defenders[0])
+        if self.keyboard.isKeyDown(OIS.KC_2):
+            self.engine.selectionMgr.selectEnt(self.engine.entityMgr.defenders[1])
+        if self.keyboard.isKeyDown(OIS.KC_3):
+            self.engine.selectionMgr.selectEnt(self.engine.entityMgr.defenders[2])
+        if self.keyboard.isKeyDown(OIS.KC_4):
+            self.engine.selectionMgr.selectEnt(self.engine.entityMgr.defenders[3])
+
         return True
 
     def keyReleased(self, evt):

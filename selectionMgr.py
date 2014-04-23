@@ -9,6 +9,7 @@ class SelectionMgr:
     def init(self):
         self.selectedEnts = []
         self.selectedEntIndex = self.engine.entityMgr.nEnts;
+        self.selectedDefenderIndex = self.engine.entityMgr.nDefenders;
         self.selectedEnt = None
         self.keyboard = self.engine.inputMgr.keyboard
         self.toggle = 0.1
@@ -22,9 +23,9 @@ class SelectionMgr:
             # Update the toggle timer.
             self.toggle = 0.1
             if self.keyboard.isKeyDown(OIS.KC_LSHIFT):
-                self.addNextEnt()
+                self.addNextDefender()
             else:
-                self.selectNextEnt()
+                self.selectNextDefender()
             #print "Selected Ent : ", self.selectedEnt.uiname, self.selectedEntIndex
 
     def stop(self):
@@ -66,6 +67,25 @@ class SelectionMgr:
         self.addSelectedEnt(self.engine.entityMgr.ents[self.selectedEntIndex])
         return 
 
+###########################################################
+    def selectNextDefender(self):
+        self.selectedDefenderIndex = self.getNextSelectedDefenderIndex(self.selectedDefenderIndex)
+        self.selectEnt(self.engine.entityMgr.defenders[self.selectedDefenderIndex])
+        return 
+
+    def addNextDefender(self):
+        self.selectedDefenderIndex = self.getNextSelectedDefenderIndex(self.selectedDefenderIndex)
+        self.addSelectedEnt(self.engine.entityMgr.defenders[self.selectedDefenderIndex])
+        return 
+
+    def getNextSelectedDefenderIndex(self, index):
+        if index >= self.engine.entityMgr.nDefenders - 1:
+            index = 0
+        else:
+            index = index + 1
+        return index
+
+###########################################################
     def getNextSelectedEntIndex(self, index):
         if index >= self.engine.entityMgr.nEnts - 1:
             index = 0

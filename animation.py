@@ -1,3 +1,5 @@
+from vector import Vector3
+
 class AnimationMgr:
     def __init__(self, Ent):
         self.Ent = Ent
@@ -16,6 +18,7 @@ class AnimationMgr:
         elif self.Ent.aspects[2].deathtimer >0:
             if self.Ent.aspects[2].deathtimer >= 10:
                 self.AnimateDie()
+                #self.Ent.pos = Vector3(self.Ent.pos.x, -7, self.Ent.pos.z) # could be  acool thing to do
             elif self.Ent.aspects[2].deathtimer == 20:
                 self.Ent.engine.entityMgr.rEnts.append(self.Ent)
             else:
