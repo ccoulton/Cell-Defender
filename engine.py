@@ -41,11 +41,11 @@ class Engine(object):
         import gameMgr
         self.gameMgr = gameMgr.GameMgr(self)
         self.gameMgr.init()
-
+        self.Endgame = False
 
     def stop(self):
-        self.gfxMgr.stop()
         self.inputMgr.stop()
+        self.gfxMgr.stop()
         self.selectionMgr.stop()
         self.gameMgr.stop()
         self.controlMgr.stop()
@@ -76,6 +76,7 @@ class Engine(object):
         
             weu.messagePump()             # Needed for linux/mac
             time.sleep(0.001)
-
+            if self.Endgame == True:
+                self.stop()
         print "381 Engine exiting..."
     

@@ -25,7 +25,11 @@ class ControlMgr:
     def addInter(self, target):
    	    for selectedEnt in self.engine.selectionMgr.selectedEnts:
    	        selectedEnt.aspects[2].addCom(ai.intercept(selectedEnt, target))
-
+   	        
+    def addFlee(self, target):
+        for selectedEnt in self.engine.selectionMgr.selectedEnts:
+            selectedEnt.aspects[2].addCom(ai.flee(selectedEnt, target))
+            
     def addFollow(self, target):
         for selectedEnt in self.engine.selectionMgr.selectedEnts:
             selectedEnt.aspects[2].addCom(ai.follow(selectedEnt, target))

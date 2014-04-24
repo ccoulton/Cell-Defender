@@ -17,8 +17,10 @@ class GfxMgr:
 
 
     def tick(self, dtime):
+        if self.renderWindow.isClosed():
+            self.engine.stop()
         self.root.renderOneFrame()
-
+        
     # The Root constructor for the ogre
     def createRoot(self):
         self.root = ogre.Root()
@@ -48,7 +50,8 @@ class GfxMgr:
     # Create the render window
     def createRenderWindow(self):
         self.root.initialise(True, "Its always been Wankershim Games Engine")
- 
+        self.renderWindow = self.root.getAutoCreatedWindow()
+        
     # Initialize the resources here (which were read from resources.cfg in defineResources()
     def initializeResourceGroups(self):
         ogre.TextureManager.getSingleton().setDefaultNumMipmaps(5)
@@ -63,7 +66,7 @@ class GfxMgr:
         self.camera.nearClipDistance = 5
 
         self.viewPort = self.root.getAutoCreatedWindow().addViewport(self.camera)
-        self.sceneManager.ambientLight = .8, .8, .8
+        self.sceneManager.ambientLight = (.05, .05, .05)
  
         # Setup a ground plane.
         #plane = ogre.Plane ((0, 1, 0), -100)

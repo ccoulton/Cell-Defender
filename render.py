@@ -11,9 +11,10 @@ class Renderer:
         self.ent = ent
         print "Rendering seting up for: ", str(self.ent)
         self.gent =  self.ent.engine.gfxMgr.sceneManager.createEntity(self.ent.uiname + "_ogreEnt", self.ent.mesh)
-        self.node =  self.ent.engine.gfxMgr.sceneManager.getRootSceneNode().createChildSceneNode(self.ent.uiname + 'node', ent.pos)
-
+        self.SM = self.ent.engine.gfxMgr.sceneManager
+        self.node =  self.SM.getRootSceneNode().createChildSceneNode(self.ent.uiname + 'node', ent.pos)
         if self.ent.isDefender == True:
+            self.createLight(self.ent.defenderNum) 
             if self.ent.defenderNum == 1:
                 self.gent.setMaterialName('Examples/oneDefender')
             elif self.ent.defenderNum == 2:
@@ -23,12 +24,24 @@ class Renderer:
             elif self.ent.defenderNum == 4:
                 self.gent.setMaterialName('Examples/fourDefender')
         elif self.ent.uiname == 'motherShip0':
-                self.gent.setMaterialName('Examples/mothership')
+            self.createLight(self.ent.eid)
+            self.gent.setMaterialName('Examples/mothership')
 
         self.node.attachObject(self.gent)
     
+    def createLight(self, entNum):
+        unitLight = self.node.createChildSceneNode()
+        light = self.SM.createLight('SpotLight'+str(entNum))
+        light.type = ogre.Light.LT_SPOTLIGHT
+        light.diffuseColour  = (1,1,1)
+        light.specularColour = (1,1,1)
+        light.position = (0, self.ent.lightHeight, 0)
+        light.direction = (0, -1, 0)
+        light.setSpotlightRange(ogre.Degree(90),ogre.Degree(90))
+        unitLight.attachObject(light)
+        
     def checkPos(self):
-        raySceneQuery = self.ent.engine.gfxMgr.sceneManager.createRayQuery(ogre.Ray())
+        raySceneQuery = self.SM.createRayQuery(ogre.Ray())
         updateRay = ogre.Ray()
         updateRay.setOrigin(self.ent.pos + ogre.Vector3(0,5,0))
         updateRay.setDirection(ogre.Vector3().NEGATIVE_UNIT_Y)

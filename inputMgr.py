@@ -156,7 +156,7 @@ class InputMgr(OIS.KeyListener, OIS.MouseListener, OIS.JoyStickListener):
             self.pitchRot = -self.rotate'''
 
         if self.keyboard.isKeyDown(OIS.KC_ESCAPE):
-            self.engine.stop()
+            self.engine.Endgame = True
 
         # defender selection through hotkeys
         if self.keyboard.isKeyDown(OIS.KC_1):
@@ -204,13 +204,13 @@ class InputMgr(OIS.KeyListener, OIS.MouseListener, OIS.JoyStickListener):
             self.engine.controlMgr.clearComs()
         if closest:
             #intercept
-            self.engine.controlMgr.addInter(closest)
-            '''if self.leftControlDown:
+            #self.engine.controlMgr.addInter(closest)
+            if self.leftControlDown:
                 #intercept
-                self.engine.controlMgr.addInter(closest)
+                self.engine.controlMgr.addFlee(closest)
             else:
                 #follow
-                self.engine.controlMgr.addFollow(closest)'''
+                self.engine.controlMgr.addInter(closest)
         else:
             self.engine.controlMgr.addMove(pos)
             
