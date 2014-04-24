@@ -48,7 +48,7 @@ class GameMgr:
             else:
                 ent = self.engine.entityMgr.createEnt(entType, pos = Vector3(x, 0, 0))
                 print "GameMgr Created: ", ent.uiname, ent.eid
-                x += 500
+                x += 1000
 #level 2--------------------------------           
     def game2(self):
         x = 0

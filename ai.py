@@ -108,7 +108,6 @@ class move(Commands):
 		Commands.__init__(self, currEnt)
 		self.currEnt = currEnt
 		self.desiredPoint = desiredPoint
-		#self.addCom(move)
 		self.finished = False
         
 	def tick(self, dTime):
@@ -126,7 +125,28 @@ class move(Commands):
 				self.currEnt.desiredSpeed = 0
 			else:
 				self.currEnt.desiredSpeed = self.currEnt.maxSpeed
-							
+
+class flee(move):
+    def __init__(self, Ent, target):
+        move.__init__(self, Ent)
+        self.Ent    = Ent
+        self.target = target
+        
+    def tick(self, dTime):
+        timeToTarget = 1
+        dist = diffDist(self.Ent.pos, self.target.pos)
+        dist = math.sqrt(dist)
+        relativeVel = self.target.vel - self.Ent.vel
+        relativeSpeed = relativeVel.length()
+        if relativeSpeed > 0:
+            timeToTarget = dist/relativeSpeed
+        elif self.Ent.speed > 0:
+            timeToTarget = dist/self.Ent.speed
+        targetLocation = self.target.pos + (relativeVel *timeToTarget)
+        diff = targetLocation - self.Ent.pos
+        self.Ent.desiredHeading = math.atan2(diff.z, -diff.x)
+        self.Ent.desiredSpeed = self.Ent.maxSpeed
+        						
 class intercept(move):
 
     def __init__(self, Ent, target):
@@ -135,7 +155,7 @@ class intercept(move):
         self.target = target
 		
     def tick(self, dTime):
-        timeToTarget = 1000
+        timeToTarget = 1
         dist = diffDist(self.Ent.pos, self.target.pos) #returns Squared Distance
         dist = math.sqrt(dist)
         relativeVel = self.target.vel - self.Ent.vel
