@@ -45,10 +45,13 @@ class GameMgr:
             if str(entType) == 'ent.defender':
                 self.engine.entityMgr.createDefenders(entType)
                 print "GameMgr Created: denfenders (1-4)"
+            elif str(entType) == 'ent.attacker':
+                pass
             else:
                 ent = self.engine.entityMgr.createEnt(entType, pos = Vector3(x, 0, 0))
                 print "GameMgr Created: ", ent.uiname, ent.eid
                 x += 1000
+            
 #level 2--------------------------------           
     def game2(self):
         x = 0
@@ -56,14 +59,14 @@ class GameMgr:
         self.spawnCount = 2
 #---------------------------------------
     def spawnEnemy(self):
-        if self.spawnCount %5 == 0: 
+        if self.spawnCount %10 == 0: 
             self.spawnNum += 1
         for index in range(0,self.spawnNum):
             x = random.randint(-10, 10)
             z = random.randint(-10, 10)
             randomVector = Vector3(x, 0, z)
             randomVector.normalise()
-            randomVector = randomVector * 1000
+            randomVector = randomVector * 2000
             randomVector = randomVector + self.engine.entityMgr.ents[0].pos
             ent = self.engine.entityMgr.createEnt(self.engine.entityMgr.entTypes[2], randomVector)
         self.spawnCount += 1

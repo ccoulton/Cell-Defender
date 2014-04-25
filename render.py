@@ -37,7 +37,7 @@ class Renderer:
         light.specularColour = (1,1,1)
         light.position = (0, self.ent.lightHeight, 0)
         light.direction = (0, -1, 0)
-        light.setSpotlightRange(ogre.Degree(90),ogre.Degree(90))
+        light.setSpotlightRange(ogre.Degree(0),ogre.Degree(130))
         unitLight.attachObject(light)
         
     def checkPos(self):
