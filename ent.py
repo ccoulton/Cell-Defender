@@ -55,7 +55,7 @@ class Entity:
 class motherShip(Entity):
     def __init__(self, engine, id, pos = Vector3(0,0,0), vel = Vector3(0, 0, 0), yaw = 0):
         Entity.__init__(self, engine, id, pos = pos, vel = vel, yaw = yaw)
-        self.mesh = 'RustySphere.mesh'
+        self.mesh = 'sphere.mesh'
         self.uiname = 'motherShip' + str(id)
         self.acceleration = 2
         self.turningRate  = 0.7
@@ -72,9 +72,9 @@ class defender(Entity):
         Entity.__init__(self, engine, id, pos = pos, vel = vel, yaw = yaw)
         self.mesh = 'cube.mesh'
         self.uiname = 'defender' + str(id)
-        self.acceleration = 33
-        self.turningRate  = 1.1
-        self.maxSpeed = 65
+        self.acceleration = 55
+        self.turningRate  = 1.7
+        self.maxSpeed = 75
         self.desiredSpeed = 0
         self.desiredHeading = 0
         self.speed = 0
@@ -91,7 +91,7 @@ class attacker(Entity):
         self.mesh = 'robot.mesh'
         self.uiname = 'attacker' + str(id)
         self.acceleration = 33
-        self.turningRate  = 0.7
+        self.turningRate  = 0.9
         self.maxSpeed = 50
         self.desiredSpeed = 0
         self.desiredHeading = 0
