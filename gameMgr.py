@@ -12,21 +12,12 @@ class GameMgr:
         pass
 
     def init(self):
-        #self.titleScreen()
         self.loadLevel()
         random.seed()
         self.updateTimer = 0
         self.spawnCount = 1
         self.spawnNum = 1
         self.levelFinished = [False]
-        
-    '''def titleScreen(self):
-        screen = ogre.Rectangle2D(True)
-        screen.setCorners(-1.0,1.0,1.0,-1.0)
-        screen.setMaterial('Examples/RustySteel')
-        time.sleep(4)'''
-
-
 
     def loadLevel(self):
         '''if self.levelFinished[] == True
@@ -64,9 +55,10 @@ class GameMgr:
         for index in range(0,self.spawnNum):
             x = random.randint(-10, 10)
             z = random.randint(-10, 10)
+            randDist = random.randint(2000, 2500)
             randomVector = Vector3(x, 0, z)
             randomVector.normalise()
-            randomVector = randomVector * 2000
+            randomVector = randomVector * randDist
             randomVector = randomVector + self.engine.entityMgr.ents[0].pos
             ent = self.engine.entityMgr.createEnt(self.engine.entityMgr.entTypes[2], randomVector)
         self.spawnCount += 1

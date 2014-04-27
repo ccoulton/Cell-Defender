@@ -22,7 +22,7 @@ class SndMgr:
         print "Initializing Sound manager"
         #self.sndMgr = OgreAL.SoundManager()
         self.bgm = self.manager.createSound("background", "Voyager.ogg")
-        self.bgm.setGain(0.8)
+        self.bgm.setGain(0.9)
         self.bgm.play()
         pass
 

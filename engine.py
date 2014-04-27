@@ -1,4 +1,5 @@
 # 381 main engine
+import threading
 
 class Engine(object):
     '''
@@ -6,9 +7,15 @@ class Engine(object):
     '''
 
     def __init__(self):
-        pass
+        self.delay = 5000
+        self.studioName = "../media/materials/textures/wankershimStartScreen.gif"
+        #self.gameTitleScreen = ''
 
     def init(self):
+        import splashScreen
+        self.splash = splashScreen.SplashScreen(self.delay, self.studioName)
+        self.splash.start()
+
         import entityMgr
         self.entityMgr = entityMgr.EntityMgr(self)
         self.entityMgr.init()
@@ -17,6 +24,10 @@ class Engine(object):
         import gfxMgr
         self.gfxMgr = gfxMgr.GfxMgr(self)
         self.gfxMgr.init()
+
+        import widgetMgr
+        self.widgetMgr = widgetMgr.WidgetMgr(self)
+        self.widgetMgr.init()
         
         import sndMgr
         self.sndMgr = sndMgr.SndMgr(self)
@@ -57,6 +68,8 @@ class Engine(object):
         weu = ogre.WindowEventUtilities() # Needed for linux/mac
         weu.messagePump()                 # Needed for linux/mac
 
+        self.splash.join()
+        
         self.oldTime = time.time()        
         self.runTime = 0
         while (self.keepRunning):
@@ -66,6 +79,8 @@ class Engine(object):
 
             self.entityMgr.tick(dtime)
             self.gfxMgr.tick(dtime)
+            self.widgetMgr.tick(dtime)
+            self.sndMgr.tick(dtime)
             self.netMgr.tick(dtime)
             self.inputMgr.tick(dtime)
             self.selectionMgr.tick(dtime)
