@@ -13,7 +13,7 @@ class InputMgr(OIS.KeyListener, OIS.MouseListener, OIS.JoyStickListener):
         OIS.KeyListener.__init__(self)
         OIS.MouseListener.__init__(self)
         OIS.JoyStickListener.__init__(self)
-        self.move = 250
+        self.move = 300
         self.rotate = 0.01
         self.yawRot = 0.0
         self.pitchRot = 0.0
@@ -21,6 +21,8 @@ class InputMgr(OIS.KeyListener, OIS.MouseListener, OIS.JoyStickListener):
         self.toggle = 0.1
         self.selectionRadius = 100
         self.startCtr = 0
+        self.lastMouseZ = 0
+        self.newMouseZ = 0
 
 
 
@@ -90,18 +92,34 @@ class InputMgr(OIS.KeyListener, OIS.MouseListener, OIS.JoyStickListener):
         self.ms.height = self.engine.gfxMgr.viewPort.actualHeight
         self.mousePos = (self.ms.X.abs/float(self.ms.width), self.ms.Y.abs/float(self.ms.height))
         
+        self.newMouseZ = self.ms.Z.abs
+
         if self.startCtr > 3:
             if self.mousePos[0] > 0.99: self.transVector.x += self.move
             if self.mousePos[0] < 0.01: self.transVector.x -= self.move
             if self.mousePos[1] > 0.99: self.transVector.z += self.move
             if self.mousePos[1] < 0.01: self.transVector.z -= self.move
 
+        if self.newMouseZ > self.lastMouseZ:
+            self.transVector.y -= self.move + 3000
+
+        elif self.newMouseZ < self.lastMouseZ:
+            self.transVector.y += self.move + 3000
+
+        self.lastMouseZ = self.newMouseZ
+
+        #check if camera is out fo range
+        #checkCameraPos(self.
+
+        cameraPitchNode = self.engine.gfxMgr.camera.parentSceneNode
+        cameraNode = cameraPitchNode.parentSceneNode
+
         #self.camNode.yaw(ogre.Degree(-self.yawRot)
         self.camYawNode.yaw(ogre.Radian(self.yawRot))
         self.camPitchNode.pitch(ogre.Radian(self.pitchRot))
 
         # Translate the camera based on time.
-        self.camYawNode.translate(self.camYawNode.orientation
+        cameraNode.translate(self.camYawNode.orientation
                                * self.transVector
                                * dtime)
         self.handleModifiers(dtime)
@@ -137,10 +155,10 @@ class InputMgr(OIS.KeyListener, OIS.MouseListener, OIS.JoyStickListener):
         if  self.keyboard.isKeyDown(OIS.KC_D):
             self.transVector.x += self.move
         # Up.        
-        if self.keyboard.isKeyDown(OIS.KC_PGUP):
+        if self.keyboard.isKeyDown(OIS.KC_R):
             self.transVector.y += self.move
         # Down.
-        if self.keyboard.isKeyDown(OIS.KC_PGDOWN):
+        if self.keyboard.isKeyDown(OIS.KC_F):
             self.transVector.y -= self.move        
 
         '''if self.keyboard.isKeyDown(OIS.KC_Q):
@@ -179,13 +197,7 @@ class InputMgr(OIS.KeyListener, OIS.MouseListener, OIS.JoyStickListener):
         return True
         
     def handleMovementCommands(self, evt): #handles the Right click behaviors of the "AI"
-        '''self.mouse.capture()
-        self.ms = self.mouse.getMouseState()
-        print str(self.ms)
 
-        self.ms.width = self.engine.gfxMgr.viewPort.actualWidth 
-        self.ms.height = self.engine.gfxMgr.viewPort.actualHeight
-        self.mousePos = (self.ms.X.abs/float(self.ms.width), self.ms.Y.abs/float(self.ms.height))'''
         mouseRay = self.engine.gfxMgr.camera.getCameraToViewportRay(*self.mousePos)
         result  =  mouseRay.intersects(self.engine.gfxMgr.groundPlane)
         if result.first:
@@ -222,13 +234,7 @@ class InputMgr(OIS.KeyListener, OIS.MouseListener, OIS.JoyStickListener):
         return True
 
     def handleMouseSelection(self, evt):
-        '''self.mouse.capture()
-        self.ms = self.mouse.getMouseState()
-        print str(self.ms)
 
-        self.ms.width = self.engine.gfxMgr.viewPort.actualWidth 
-        self.ms.height = self.engine.gfxMgr.viewPort.actualHeight
-        self.mousePos = (self.ms.X.abs/float(self.ms.width), self.ms.Y.abs/float(self.ms.height))'''
         mouseRay = self.engine.gfxMgr.camera.getCameraToViewportRay(*self.mousePos)
         result  =  mouseRay.intersects(self.engine.gfxMgr.groundPlane)
 

@@ -27,6 +27,8 @@ class Renderer:
             self.createLight(self.ent.eid)
             self.gent.setMaterialName('Examples/mothership')
 
+        self.gent.setCastShadows(False)
+
         self.node.attachObject(self.gent)
     
     def createLight(self, entNum):
@@ -35,9 +37,10 @@ class Renderer:
         light.type = ogre.Light.LT_SPOTLIGHT
         light.diffuseColour  = (1,1,1)
         light.specularColour = (1,1,1)
+        light.setCastShadows(False)
         light.position = (0, self.ent.lightHeight, 0)
         light.direction = (0, -1, 0)
-        light.setSpotlightRange(ogre.Degree(0),ogre.Degree(130))
+        light.setSpotlightRange(ogre.Degree(0),ogre.Degree(100), 0.1)
         unitLight.attachObject(light)
         
     def checkPos(self):
