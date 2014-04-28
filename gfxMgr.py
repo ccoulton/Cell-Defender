@@ -67,6 +67,7 @@ class GfxMgr:
 
         self.viewPort = self.root.getAutoCreatedWindow().addViewport(self.camera)
         self.sceneManager.ambientLight = (.05, .05, .05)
+        #self.sceneManager.ambientLight = (1, 1, 1)
  
         # Setup a ground plane.
         #plane = ogre.Plane ((0, 1, 0), -100)
