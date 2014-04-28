@@ -13,8 +13,7 @@ class Renderer:
         self.gent =  self.ent.engine.gfxMgr.sceneManager.createEntity(self.ent.uiname + "_ogreEnt", self.ent.mesh)
         self.SM = self.ent.engine.gfxMgr.sceneManager
         self.node =  self.SM.getRootSceneNode().createChildSceneNode(self.ent.uiname + 'node', ent.pos)
-        if self.ent.isDefender == True:
-            self.createLight(self.ent.defenderNum) 
+        if self.ent.isDefender == True: 
             if self.ent.defenderNum == 1:
                 self.gent.setMaterialName('Examples/oneDefender')
             elif self.ent.defenderNum == 2:
@@ -23,6 +22,7 @@ class Renderer:
                 self.gent.setMaterialName('Examples/threeDefender')
             elif self.ent.defenderNum == 4:
                 self.gent.setMaterialName('Examples/fourDefender')
+            self.createLight(self.ent.eid)
         elif self.ent.uiname == 'motherShip0':
             self.createLight(self.ent.eid)
             self.gent.setMaterialName('Examples/mothership')

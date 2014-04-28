@@ -39,9 +39,12 @@ class GameMgr:
             elif str(entType) == 'ent.attacker':
                 pass
             else:
-                ent = self.engine.entityMgr.createEnt(entType, pos = Vector3(x, 0, 0))
+            	if str(entType) == 'ent.terrain':
+            		ent = self.engine.entityMgr.createTerrain(entType, pos = Vector3(0,0,x))
+            	else:
+                	ent = self.engine.entityMgr.createEnt(entType, pos = Vector3(0, 0, x))
                 print "GameMgr Created: ", ent.uiname, ent.eid
-                x += 1000
+                x += 250
             
 #level 2--------------------------------           
     def game2(self):
@@ -60,7 +63,7 @@ class GameMgr:
             randomVector.normalise()
             randomVector = randomVector * randDist
             randomVector = randomVector + self.engine.entityMgr.ents[0].pos
-            ent = self.engine.entityMgr.createEnt(self.engine.entityMgr.entTypes[2], randomVector)
+            ent = self.engine.entityMgr.createEnt(self.engine.entityMgr.entTypes[3], randomVector)
         self.spawnCount += 1
 #----------------------------------------        
     def tick(self, dt):
