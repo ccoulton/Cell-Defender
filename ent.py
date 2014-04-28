@@ -81,6 +81,7 @@ class defender(Entity):
         self.heading = 0
         self.isDefender = True
         self.defenderNum = defenderNum
+        self.aspectTypes = [Physics, Renderer, ai.pathfinding]
         self.lightHeight = 500
 #-----------------------------------------------------------------------------------------
 class attacker(Entity):
@@ -115,5 +116,6 @@ class terrain(Entity):
         self.heading = 0
         self.aspectTypes = [Renderer]
         self.isTerrain = True
+        self.radius = 1000
         
 

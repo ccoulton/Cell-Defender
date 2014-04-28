@@ -43,6 +43,40 @@ class commandMgr:
     def clearComs(self):
         self.commands[:] = []
 
+class pathfinding(commandMgr):
+    terrainList = []
+    def __init__(self, Ent):
+	    self.Ent = Ent
+	    self.terrainList = self.Ent.engine.entityMgr.terrain
+	    self.commands = []
+	    self.commands.append(move(self.Ent, self.Ent.pos))
+	    self.commands.append(flee(self.Ent, self.terrainList[0]))
+	    print "Pathfinding"
+
+    def clearComs(self):
+	    pass
+
+    def addCom(self, comType):
+	    self.commands[0] = comType
+
+    def comFinished(self):
+	    self.commands[0] = move(self.Ent, self.Ent.pos)
+	
+    def tick(self, dTime):
+        fleeVectors = Vector3(0,0,0)
+        objectiveVector = Vector3(0,0,0)
+        objectiveVector = self.commands[0].findVector()
+        for TerrainObj in self.terrainList:
+            if checkDist(diffDist(self.Ent.pos, TerrainObj.pos), TerrainObj.radius):
+                self.commands[1].changeTar(TerrainObj)
+                diff = self.commands[1].findVector()
+                fleeAngle = math.atan2(diff.z, -diff.x)
+                fleeVectors.x += math.cos(fleeAngle)
+                fleeVectors.z +=-math.sin(fleeAngle)		
+        objectiveVector += fleeVectors
+        self.Ent.desiredHeading = math.atan2(-objectiveVector.z, objectiveVector.x)
+        self.commands[0].checkStop()
+        
 class motherShipCommandMgr(commandMgr):
 
     def __init__(self, Ent):
@@ -110,23 +144,29 @@ class move(Commands):
         Commands.__init__(self, currEnt)
         self.currEnt = currEnt
         self.desiredPoint = desiredPoint
-
-    def tick(self, dTime):
+    
+    def findVector(self):
+        return (self.desiredPoint - self.currEnt.pos)
+    
+    def checkStop(self):
         stopDist = 1000
         dist = diffDist(self.currEnt.pos, self.desiredPoint) #scalar distance
-        diff = self.desiredPoint - self.currEnt.pos			#distance Vector
-        self.currEnt.desiredHeading = math.atan2(-diff.z, diff.x)
         if self.currEnt.speed > 0:
             stopDist = dist/self.currEnt.speed
         shipStop = self.currEnt.speed/self.currEnt.acceleration
         if checkDist(dist, 100):
             self.finished = True
         else:
-            if stopDist <= shipStop:
+            if stopDist <= shipStop + self.currEnt.speed:
                 self.currEnt.desiredSpeed = 0
             else:
                 self.currEnt.desiredSpeed = self.currEnt.maxSpeed
-    						
+                
+    def tick(self, dTime):
+        diff = self.desiredPoint - self.currEnt.pos			#distance Vector
+        self.currEnt.desiredHeading = math.atan2(-diff.z, diff.x)
+    	self.checkStop()
+    	
 class intercept(Commands):
 
     def __init__(self, Ent, target):
@@ -134,7 +174,9 @@ class intercept(Commands):
         self.Ent    = Ent
         self.target = target
         return None
-
+    def checkStop(self):
+        pass
+        
     def findVector(self):
         timeToTarget = 1
         dist = diffDist(self.Ent.pos, self.target.pos) #returns Squared Distance
@@ -159,9 +201,13 @@ class intercept(Commands):
             self.Ent.desiredSpeed = self.Ent.maxSpeed
         
 class flee(intercept):
+
     def __init__(self, Ent, target):
         intercept.__init__(self, Ent,target)
         
+    def changeTar(self, newTarget):
+	    self.target = newTarget
+	            
     def tick(self, dTime):
         diff = self.findVector()
         self.Ent.desiredHeading = math.atan2(diff.z, -diff.x)
