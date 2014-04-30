@@ -41,6 +41,8 @@ class GameMgr:
             else:
             	if str(entType) == 'ent.terrain':
             		ent = self.engine.entityMgr.createTerrain(entType, pos = Vector3(0,0,x))
+            		ent = self.engine.entityMgr.createTerrain(entType, pos = Vector3(x,0,0))
+            		ent = self.engine.entityMgr.createTerrain(entType, pos = Vector3(-x,0,0))
             	else:
                 	ent = self.engine.entityMgr.createEnt(entType, pos = Vector3(0, 0, x))
                 print "GameMgr Created: ", ent.uiname, ent.eid

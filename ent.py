@@ -66,8 +66,12 @@ class motherShip(Entity):
         self.heading = 0
         self.aspectTypes = [Physics, Renderer, ai.motherShipCommandMgr]
         self.lightHeight = 1000
+<<<<<<< .mine
+        self.radius = 100
+=======
         self.health = 100
 
+>>>>>>> .r24
 #-----------------------------------------------------------------------------------------
 class defender(Entity):
     def __init__(self, engine, id, pos = Vector3(0,0,0), vel = Vector3(0, 0, 0), yaw = 0, defenderNum = 0):
@@ -83,8 +87,9 @@ class defender(Entity):
         self.heading = 0
         self.isDefender = True
         self.defenderNum = defenderNum
-        self.aspectTypes = [Physics, Renderer, ai.pathfinding]
+        self.aspectTypes = [Physics, Renderer, ai.commandMgr]
         self.lightHeight = 500
+        self.radius = 50
 #-----------------------------------------------------------------------------------------
 class attacker(Entity):
     Ogre_Ent = None
@@ -102,6 +107,7 @@ class attacker(Entity):
         self.heading = 0
         self.aspectTypes = [Physics, Renderer, ai.attackerCmdMgr, AnimationMgr]
         self.isAttacker = True
+        self.radius = 20
 #-----------------------------------------------------------------------------------------
 
 class terrain(Entity):
@@ -118,6 +124,6 @@ class terrain(Entity):
         self.heading = 0
         self.aspectTypes = [Renderer]
         self.isTerrain = True
-        self.radius = 1000
+        self.radius = 25
         
 

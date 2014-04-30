@@ -63,11 +63,11 @@ class pathfinding(commandMgr):
 	    self.commands[0] = move(self.Ent, self.Ent.pos)
 	
     def tick(self, dTime):
+    	
         fleeVectors = Vector3(0,0,0)
-        objectiveVector = Vector3(0,0,0)
         objectiveVector = self.commands[0].findVector()
-        for TerrainObj in self.terrainList:
-            if checkDist(diffDist(self.Ent.pos, TerrainObj.pos), TerrainObj.radius):
+        for TerrainObj in self.terrainList: 
+            if checkDist(diffDist(self.Ent.pos, TerrainObj.pos), (pow(TerrainObj.radius,2)+pow(self.Ent.radius,2))):
                 self.commands[1].changeTar(TerrainObj)
                 diff = self.commands[1].findVector()
                 fleeAngle = math.atan2(diff.z, -diff.x)
@@ -108,28 +108,24 @@ class attackerCmdMgr(commandMgr):
             if self.commands[0].finished == True:
                 self.comFinished()
             else:
+            	self.checkTarget()
                 self.commands[0].tick(dTime)
-                self.checkTarget()
-        if len(self.commands) == 0:
+        elif len(self.commands) == 0:
             self.deathtimer +=1
             if self.deathtimer == 10:
                 self.Ent.toRender == False
                   
     def checkTarget(self):
         dist = diffDist(self.Ent.pos, self.target.pos)
-        closestDefenderDist = 9999
+        if dist < 12000:
+        	#Mothership struck
+        	self.comFinished
         for defender in self.Ent.engine.entityMgr.defenders:
+            print "Defender Checked"
             currentDist = diffDist(self.Ent.pos, defender.pos)
-            if closestDefenderDist > currentDist:
-                closestDefenderDist = currentDist
-        smallestDist = smallest(dist, closestDefenderDist)
-        if checkDist(smallestDist, 4000):
-            #if dist == smallestDist: # if cause of collision was with MS
-            #self.target.health -= 10
-            #self.Ent.engine.widgetMgr.healthLabel.setCaption(str(self.target.health))
-            #self.comFinished()
-            self.commands[0].finished = True
-
+            if currentDist <2900:
+            	#Defender struck
+                self.comFinished
 		 
 class Commands:
 	
