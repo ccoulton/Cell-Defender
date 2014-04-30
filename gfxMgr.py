@@ -89,6 +89,7 @@ class GfxMgr:
         self.camPitchNode = self.camYawNode.createChildSceneNode('PitchNode1')
         self.camPitchNode.attachObject(self.camera)
  
+		
  
      # In the end, clean everything up (= delete)
     #def cleanUp(self):
