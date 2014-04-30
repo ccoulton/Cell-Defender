@@ -68,14 +68,11 @@ class pathfinding(commandMgr):
         collideDist = pow((self.Ent.radius + self.commands[1].target.radius),2)
         for TerrainObj in self.Ent.engine.entityMgr.terrain:
             if diffDist(self.Ent.pos, TerrainObj.pos) <= 2*collideDist:
-                print "check flee"
                 self.commands[1].changeTar(TerrainObj)
                 diff = self.commands[1].findVector()
                 fleeAngle = math.atan2(diff.z, -diff.x)
-                fleeVectors.x += math.cos(fleeAngle)
-                fleeVectors.z +=-math.sin(fleeAngle)	
-        print fleeVectors
-        fleeVectors = fleeVectors*self.Ent.speed
+                fleeVectors.x+= math.cos(fleeAngle)*(self.Ent.speed+self.Ent.radius+TerrainObj.radius)
+                fleeVectors.z+=-math.sin(fleeAngle)*(self.Ent.speed+self.Ent.radius+TerrainObj.radius)
         objectiveVector += fleeVectors
         self.Ent.desiredHeading = math.atan2(-objectiveVector.z, objectiveVector.x)
         self.commands[0].checkStop()
