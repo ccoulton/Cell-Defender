@@ -66,12 +66,8 @@ class motherShip(Entity):
         self.heading = 0
         self.aspectTypes = [Physics, Renderer, ai.motherShipCommandMgr]
         self.lightHeight = 1000
-<<<<<<< .mine
         self.radius = 100
-=======
         self.health = 100
-
->>>>>>> .r24
 #-----------------------------------------------------------------------------------------
 class defender(Entity):
     def __init__(self, engine, id, pos = Vector3(0,0,0), vel = Vector3(0, 0, 0), yaw = 0, defenderNum = 0):
@@ -87,7 +83,7 @@ class defender(Entity):
         self.heading = 0
         self.isDefender = True
         self.defenderNum = defenderNum
-        self.aspectTypes = [Physics, Renderer, ai.commandMgr]
+        self.aspectTypes = [Physics, Renderer, ai.pathfinding]
         self.lightHeight = 500
         self.radius = 50
 #-----------------------------------------------------------------------------------------
