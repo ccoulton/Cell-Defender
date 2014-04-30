@@ -45,6 +45,8 @@ class GameMgr:
                 	ent = self.engine.entityMgr.createEnt(entType, pos = Vector3(0, 0, x))
                 print "GameMgr Created: ", ent.uiname, ent.eid
                 x += 250
+
+        self.engine.widgetMgr.healthLabel.setCaption(str(self.engine.entityMgr.ents[0].health))
             
 #level 2--------------------------------           
     def game2(self):
@@ -58,7 +60,7 @@ class GameMgr:
         for index in range(0,self.spawnNum):
             x = random.randint(-10, 10)
             z = random.randint(-10, 10)
-            randDist = random.randint(2000, 2500)
+            randDist = random.randint(1000, 1500)
             randomVector = Vector3(x, 0, z)
             randomVector.normalise()
             randomVector = randomVector * randDist

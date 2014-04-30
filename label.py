@@ -98,4 +98,5 @@ class Label:
         self.setCharHeight(height)
 #-------------------------------------------------------------------
     def tick(self, time, dtime):
-        pass # do nothing, use setCaption to change label text
+        #self.textArea.setCaption(self.caption)
+        pass
