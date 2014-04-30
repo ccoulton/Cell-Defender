@@ -1,28 +1,34 @@
 import ogre.renderer.OGRE as ogre
 import ogre.io.OIS as OIS
+from label import Label
+from panel import Panel
 
 class WidgetMgr:
 
     def __init__(self,engine):
         self.engine = engine
-        self.overlayManager = ogre.OverlayManager.getSingleton()
-        self.pid         = "UIPanel" + str(0)
-        self.panel       = self.overlayManager.createOverlayElement("Panel", self.pid)
-        self.panel.setMetricsMode(ogre.GMM_PIXELS)#RELATIVE_ASPECT_ADJUSTED)
-        self.panel.setPosition(0, 0)
+
         width  = self.engine.gfxMgr.renderWindow.getWidth()
-        height = self.engine.gfxMgr.renderWindow.getHeight() # VERY IMPORTANT or rayscene queries fail
-        self.panel.setDimensions(width, height)        
-        self.panel.setMaterialName("CD/UI")
-        self.panel.show()
+        height = self.engine.gfxMgr.renderWindow.getHeight()
 
-        self.id = "MainUI"
-        self.overlayName = "UIOverlay" + str(0)
-        self.overlay     = self.overlayManager.create(self.overlayName)
-        self.overlay.add2D(self.panel)
-        self.overlay.show()
-        self.panel.show()
+        self.UIpanel = Panel(name = "UIPanel1", pos = (0,0), dim = (width, height), material = "CD/UI")
 
+        self.textPanel = Panel(name = "textPanel1", pos = (10,960))
+        self.label = Label(caption = "Mothership Health:", color = (0,0,.5))
+        self.textPanel.getPanel().addChild(self.label.getTextArea())
+    
+        self.textPanel = Panel(name = "textPanel2", pos = (500,960))
+        self.label = Label(caption = "Robots Destroyed:", color = (0,0,.5), pos = (500,0))
+        self.textPanel.getPanel().addChild(self.label.getTextArea())
+
+        self.mothershipHealth = Panel(name = "textPanel3", pos = (100,960))
+        self.label = Label(caption = "100", color = (0,0,.5), pos = (0,0))
+        self.textPanel.getPanel().addChild(self.label.getTextArea())
+
+        self.robotsDestroyed = Panel(name = "textPanel4", pos = (1200,960))
+        self.label = Label(caption = "0", color = (0,0,.5), pos = (0,0))
+        self.textPanel.getPanel().addChild(self.label.getTextArea())
+        
 
     def init(self):
         pass
