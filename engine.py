@@ -7,7 +7,7 @@ class Engine(object):
     '''
 
     def __init__(self):
-        self.delay = 5000
+        self.delay = 1000
         self.studioName = "../media/materials/textures/wankershimStartScreen.gif"
         #self.gameTitleScreen = ''
 

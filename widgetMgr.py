@@ -11,22 +11,22 @@ class WidgetMgr:
         width  = self.engine.gfxMgr.renderWindow.getWidth()
         height = self.engine.gfxMgr.renderWindow.getHeight()
 
-        self.UIpanel = Panel(name = "UIPanel1", pos = (0,0), dim = (width, height), material = "CD/UI")
+        self.UIpanel = Panel(name = "UIPanel1", pos = (.0,.0), dim = (1, 1), material = "CD/UI")
 
-        self.textPanel = Panel(name = "textPanel1", pos = (10,960))
+        self.textPanel = Panel(name = "textPanel1", pos = (.1,.92))
         self.label = Label(caption = "Mothership Health:", color = (0,0,.5))
         self.textPanel.getPanel().addChild(self.label.getTextArea())
     
-        self.textPanel = Panel(name = "textPanel2", pos = (500,960))
+        self.textPanel = Panel(name = "textPanel2", pos = (.6,.92))
         self.label = Label(caption = "Robots Destroyed:", color = (0,0,.5), pos = (500,0))
         self.textPanel.getPanel().addChild(self.label.getTextArea())
 
-        self.mothershipHealth = Panel(name = "textPanel3", pos = (100,960))
+        self.mothershipHealth = Panel(name = "textPanel3", pos = (.3,.92))
         self.label = Label(caption = "100", color = (0,0,.5), pos = (0,0))
         self.textPanel.getPanel().addChild(self.label.getTextArea())
 
-        self.robotsDestroyed = Panel(name = "textPanel4", pos = (1000,960))
-        self.label = Label(caption = "0", color = (0,0,.5), pos = (0,0))
+        self.robotsDestroyed = Panel(name = "textPanel4", pos = (.4,.92))
+        self.label = Label(caption = "0", color = (0,0,.5), pos = (-100,60))
         self.textPanel.getPanel().addChild(self.label.getTextArea())
         
 
