@@ -176,6 +176,9 @@ class InputMgr(OIS.KeyListener, OIS.MouseListener, OIS.JoyStickListener):
         if self.keyboard.isKeyDown(OIS.KC_ESCAPE):
             self.engine.Endgame = True
 
+        if self.keyboard.isKeyDown(OIS.KC_SPACE):
+            self.engine.gfxMgr.camYawNode.setPosition(ogre.Vector3(0,1600,1600) + self.engine.entityMgr.ents[0].pos)
+
         # defender selection through hotkeys
         if self.keyboard.isKeyDown(OIS.KC_1):
             self.engine.selectionMgr.selectEnt(self.engine.entityMgr.defenders[0])
@@ -214,7 +217,8 @@ class InputMgr(OIS.KeyListener, OIS.MouseListener, OIS.JoyStickListener):
                         closestDistance = distSquared
         if not self.leftShiftDown:
             self.engine.controlMgr.clearComs()
-        if closest:
+        self.engine.controlMgr.addMove(pos)
+        '''if closest:
             #intercept
             #self.engine.controlMgr.addInter(closest)
             if self.leftControlDown:
@@ -224,7 +228,7 @@ class InputMgr(OIS.KeyListener, OIS.MouseListener, OIS.JoyStickListener):
                 #follow
                 self.engine.controlMgr.addInter(closest)
         else:
-            self.engine.controlMgr.addMove(pos)
+            self.engine.controlMgr.addMove(pos)'''
             
     def mousePressed(self, evt, id):
         if id == OIS.MB_Left:

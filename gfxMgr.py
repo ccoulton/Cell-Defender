@@ -77,12 +77,12 @@ class GfxMgr:
                                      10000, 10000, 50, 50, True, 1, 50, 50, (0, 0, 1))
         ent = self.sceneManager.createEntity('GroundEntity', 'Ground')
         self.sceneManager.getRootSceneNode().createChildSceneNode ().attachObject (ent)
-        ent.setMaterialName ('Examples/BeachStones') #OceanCg
+        ent.setMaterialName ('Examples/RustySteel') #OceanCg
         ent.castShadows = False
         self.sceneManager.setSkyBox (True, "Examples/SpaceSkyBox", 50000, False)
         self.camYawNode = self.sceneManager.getRootSceneNode().createChildSceneNode('CamNode1',
                                                                     #(-400, 200, 400))
-                                                                    (0, 2000, 2000))
+                                                                    (0, 1600, 1600))
         #node.yaw(ogre.Degree(-45))
         self.camYawNode.yaw(ogre.Degree(0))
         self.camera.lookAt((0,-50,0))

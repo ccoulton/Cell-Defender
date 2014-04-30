@@ -130,6 +130,8 @@ class attackerCmdMgr(commandMgr):
             currentDist = diffDist(self.Ent.pos, defender.pos)
             if currentDist < 4000:
             	#Defender struck
+                self.target.robotsDestroyed += 1
+                self.Ent.engine.widgetMgr.deathLabel.setCaption(str(self.target.robotsDestroyed))
                 self.comFinished
                 self.commands[0].finished = True
 class Commands:

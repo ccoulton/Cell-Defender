@@ -14,20 +14,20 @@ class WidgetMgr:
         self.UIpanel = Panel(name = "UIPanel1", pos = (.0,.0), dim = (1, 1), material = "CD/UI")
 
         self.textPanel = Panel(name = "textPanel1", pos = (.1,.92))
-        self.label = Label(caption = "Mothership Health:", color = (0,0,.5))
+        self.label = Label(caption = "Mothership Health:", color = (0,0,.5), dim = (130,30))
         self.textPanel.getPanel().addChild(self.label.getTextArea())
     
-        self.textPanel = Panel(name = "textPanel2", pos = (.6,.92))
-        self.label = Label(caption = "Robots Destroyed:", color = (0,0,.5), pos = (500,0))
+        self.textPanel = Panel(name = "textPanel2", pos = (.5,.92))
+        self.label = Label(caption = "Robots Destroyed:", color = (0,0,.5), pos = (0,0))
         self.textPanel.getPanel().addChild(self.label.getTextArea())
 
-        self.mothershipHealth = Panel(name = "textPanel3", pos = (.3,.92))
-        self.healthLabel = Label(caption = '100', color = (0,0,.5), pos = (0,0))
+        self.mothershipHealth = Panel(name = "textPanel3", pos = (.2,.92))
+        self.healthLabel = Label(caption = '100', color = (0,0,.5), pos = (-400,0))
         self.textPanel.getPanel().addChild(self.healthLabel.getTextArea())
 
-        self.robotsDestroyed = Panel(name = "textPanel4", pos = (.4,.92))
-        self.label = Label(caption = "0", color = (0,0,.5), pos = (-100,60))
-        self.textPanel.getPanel().addChild(self.label.getTextArea())
+        self.robotsDestroyed = Panel(name = "textPanel4", pos = (.7,.92))
+        self.deathLabel = Label(caption = "0", color = (0,0,.5), pos = (300,0))
+        self.textPanel.getPanel().addChild(self.deathLabel.getTextArea())
         
 
     def init(self):
