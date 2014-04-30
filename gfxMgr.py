@@ -42,7 +42,7 @@ class GfxMgr:
  
     # Create and configure the rendering system (either DirectX or OpenGL) here
     def setupRenderSystem(self):
-        #self.root.showConfigDialog()
+        self.root.showConfigDialog()
         if not self.root.restoreConfig() and not self.root.showConfigDialog():
             raise Exception("User canceled the config dialog -> Application.setupRenderSystem()")
  

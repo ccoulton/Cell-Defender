@@ -51,7 +51,6 @@ class pathfinding(commandMgr):
 	    self.commands = []
 	    self.commands.append(move(self.Ent, self.Ent.pos))
 	    self.commands.append(flee(self.Ent, self.terrainList[0]))
-	    print "Pathfinding"
 
     def clearComs(self):
 	    pass
@@ -66,13 +65,17 @@ class pathfinding(commandMgr):
     	
         fleeVectors = Vector3(0,0,0)
         objectiveVector = self.commands[0].findVector()
-        for TerrainObj in self.terrainList: 
-            if checkDist(diffDist(self.Ent.pos, TerrainObj.pos), (pow(TerrainObj.radius,2)+pow(self.Ent.radius,2))):
+        collideDist = pow((self.Ent.radius + self.commands[1].target.radius),2)
+        for TerrainObj in self.Ent.engine.entityMgr.terrain:
+            if diffDist(self.Ent.pos, TerrainObj.pos) <= 2*collideDist:
+                print "check flee"
                 self.commands[1].changeTar(TerrainObj)
                 diff = self.commands[1].findVector()
                 fleeAngle = math.atan2(diff.z, -diff.x)
                 fleeVectors.x += math.cos(fleeAngle)
-                fleeVectors.z +=-math.sin(fleeAngle)		
+                fleeVectors.z +=-math.sin(fleeAngle)	
+        print fleeVectors
+        fleeVectors = fleeVectors*self.Ent.speed
         objectiveVector += fleeVectors
         self.Ent.desiredHeading = math.atan2(-objectiveVector.z, objectiveVector.x)
         self.commands[0].checkStop()
@@ -120,13 +123,15 @@ class attackerCmdMgr(commandMgr):
         if dist < 12000:
         	#Mothership struck
         	self.comFinished
+        	self.commands[0].finished = True
+        	self.target.health -= 10
+        	self.Ent.engine.widgetMgr.healthLabel.setCaption(str(self.target.health))
         for defender in self.Ent.engine.entityMgr.defenders:
-            print "Defender Checked"
             currentDist = diffDist(self.Ent.pos, defender.pos)
-            if currentDist <2900:
+            if currentDist < 4000:
             	#Defender struck
                 self.comFinished
-		 
+                self.commands[0].finished = True
 class Commands:
 	
 	def __init__(self, Ent):
@@ -198,8 +203,6 @@ class intercept(Commands):
         if checkDist(self.dist, 100):
             self.Ent.desiredSpeed = 0
             self.finished = True
-            self.target.health -= 10
-            self.Ent.engine.widgetMgr.healthLabel.setCaption(str(self.target.health))
         else:
             self.Ent.desiredSpeed = self.Ent.maxSpeed
         
