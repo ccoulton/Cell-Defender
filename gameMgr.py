@@ -60,7 +60,7 @@ class GameMgr:
         for index in range(0,self.spawnNum):
             x = random.randint(-10, 10)
             z = random.randint(-10, 10)
-            randDist = random.randint(1000, 1500)
+            randDist = random.randint(1500, 1550)
             randomVector = Vector3(x, 0, z)
             randomVector.normalise()
             randomVector = randomVector * randDist
@@ -73,6 +73,8 @@ class GameMgr:
         if self.updateTimer % 500 == 0:
         #if self.updateTimer % (1000/self.spawnCount) == 0:
             self.spawnEnemy()
+        if self.engine.entityMgr.ents[0].health <= 0:
+            self.engine.keepRunning = False
 
     def stop(self):
         pass

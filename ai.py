@@ -125,9 +125,10 @@ class attackerCmdMgr(commandMgr):
         smallestDist = smallest(dist, closestDefenderDist)
         if checkDist(smallestDist, 4000):
             #if dist == smallestDist: # if cause of collision was with MS
-            self.target.health -= 10
-            self.Ent.engine.widgetMgr.healthLabel.setCaption(str(self.target.health))
-            self.comFinished()
+            #self.target.health -= 10
+            #self.Ent.engine.widgetMgr.healthLabel.setCaption(str(self.target.health))
+            #self.comFinished()
+            self.commands[0].finished = True
 
 		 
 class Commands:
@@ -201,6 +202,8 @@ class intercept(Commands):
         if checkDist(self.dist, 100):
             self.Ent.desiredSpeed = 0
             self.finished = True
+            self.target.health -= 10
+            self.Ent.engine.widgetMgr.healthLabel.setCaption(str(self.target.health))
         else:
             self.Ent.desiredSpeed = self.Ent.maxSpeed
         

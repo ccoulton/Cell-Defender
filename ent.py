@@ -68,11 +68,6 @@ class motherShip(Entity):
         self.lightHeight = 1000
         self.health = 100
 
-    '''def tick(self, dtime):
-        for aspect in self.aspects:
-            aspect.tick(dtime)
-        self.health -=1
-        self.engine.widgetMgr.healthLabel.setCaption(str(self.health))'''
 #-----------------------------------------------------------------------------------------
 class defender(Entity):
     def __init__(self, engine, id, pos = Vector3(0,0,0), vel = Vector3(0, 0, 0), yaw = 0, defenderNum = 0):

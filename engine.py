@@ -94,4 +94,6 @@ class Engine(object):
             if self.Endgame == True:
                 self.stop()
         print "381 Engine exiting..."
+
+        time.sleep(5) # game ended, wait for a few seconds
     
