@@ -28,7 +28,7 @@ material CD/UI
 
 			texture_unit
 			{
-				texture testUI.png
+				texture UI_2.png
 			}
 		}
 	}
