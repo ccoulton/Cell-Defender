@@ -68,15 +68,16 @@ class motherShip(Entity):
         self.lightHeight = 1000
         self.radius = 100
         self.health = 100
+        self.robotsDestroyed = 0
 #-----------------------------------------------------------------------------------------
 class defender(Entity):
     def __init__(self, engine, id, pos = Vector3(0,0,0), vel = Vector3(0, 0, 0), yaw = 0, defenderNum = 0):
         Entity.__init__(self, engine, id, pos = pos, vel = vel, yaw = yaw)
         self.mesh = 'cube.mesh'
         self.uiname = 'defender' + str(id)
-        self.acceleration = 55
-        self.turningRate  = 1.7
-        self.maxSpeed = 75
+        self.acceleration = 85
+        self.turningRate  = 2
+        self.maxSpeed = 85
         self.desiredSpeed = 0
         self.desiredHeading = 0
         self.speed = 0
