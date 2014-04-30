@@ -25,7 +25,7 @@ class WidgetMgr:
         self.label = Label(caption = "100", color = (0,0,.5), pos = (0,0))
         self.textPanel.getPanel().addChild(self.label.getTextArea())
 
-        self.robotsDestroyed = Panel(name = "textPanel4", pos = (1200,960))
+        self.robotsDestroyed = Panel(name = "textPanel4", pos = (1000,960))
         self.label = Label(caption = "0", color = (0,0,.5), pos = (0,0))
         self.textPanel.getPanel().addChild(self.label.getTextArea())
         
