@@ -26,7 +26,7 @@ import ogre.io.OIS as OIS
 class Panel:
     '''
     '''
-    def __init__(self, name = "ex.Panel", pos = (0.0, 0.0), dim = (100, 100), material = None):
+    def __init__(self, name = "ex.Panel", pos = (0.0, 0.0), dim = (1, 1), material = None):
 
         overlayManager = ogre.OverlayManager.getSingleton() #
         self.px = pos[0]
@@ -40,7 +40,7 @@ class Panel:
         self.overlay     = overlayManager.create(self.overlayName)
         self.id          = self.overlayName + "Panel/"
         self.panel       = overlayManager.createOverlayElement("Panel", self.id)
-        self.panel.setMetricsMode(ogre.GMM_PIXELS)#RELATIVE_ASPECT_ADJUSTED)
+        self.panel.setMetricsMode(ogre.GMM_RELATIVE)
         self.panel.setPosition(self.px, self.py)
         self.panel.setDimensions(self.dx, self.dy)
         if material:
