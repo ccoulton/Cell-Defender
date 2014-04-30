@@ -22,8 +22,8 @@ class WidgetMgr:
         self.textPanel.getPanel().addChild(self.label.getTextArea())
 
         self.mothershipHealth = Panel(name = "textPanel3", pos = (.3,.92))
-        self.label = Label(caption = "100", color = (0,0,.5), pos = (0,0))
-        self.textPanel.getPanel().addChild(self.label.getTextArea())
+        self.healthLabel = Label(caption = '100', color = (0,0,.5), pos = (0,0))
+        self.textPanel.getPanel().addChild(self.healthLabel.getTextArea())
 
         self.robotsDestroyed = Panel(name = "textPanel4", pos = (.4,.92))
         self.label = Label(caption = "0", color = (0,0,.5), pos = (-100,60))
@@ -45,6 +45,7 @@ class WidgetMgr:
         pass
 
     def tick(self, dtime):
+        #self.healthLabel.tick(0,0)
         pass
 
 '''class FramerateWidget:

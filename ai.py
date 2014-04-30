@@ -124,7 +124,11 @@ class attackerCmdMgr(commandMgr):
                 closestDefenderDist = currentDist
         smallestDist = smallest(dist, closestDefenderDist)
         if checkDist(smallestDist, 4000):
+            #if dist == smallestDist: # if cause of collision was with MS
+            self.target.health -= 10
+            self.Ent.engine.widgetMgr.healthLabel.setCaption(str(self.target.health))
             self.comFinished()
+
 		 
 class Commands:
 	
