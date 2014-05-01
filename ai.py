@@ -44,14 +44,18 @@ class commandMgr:
         self.commands[:] = []
 
 class pathfinding(commandMgr):
-    terrainList = []
+    
     def __init__(self, Ent):
-	    self.Ent = Ent
-	    self.terrainList = self.Ent.engine.entityMgr.terrain
-	    self.commands = []
-	    self.commands.append(move(self.Ent, self.Ent.pos))
-	    self.commands.append(flee(self.Ent, self.terrainList[0]))
-
+        terrainList = []
+        self.Ent = Ent
+        self.terrainList = self.Ent.engine.entityMgr.terrain
+        self.commands = []
+        self.firstrun = True
+    
+    def init(self):
+        self.commands.append(move(self.Ent, self.Ent.pos))
+        self.commands.append(flee(self.Ent, self.terrainList[0]))
+        
     def clearComs(self):
 	    pass
 
@@ -62,8 +66,10 @@ class pathfinding(commandMgr):
 	    self.commands[0] = move(self.Ent, self.Ent.pos)
 	
     def tick(self, dTime):
-    	
-        fleeVectors = Vector3(0,0,0)
+        if  self.firstrun == True:
+            self.init()
+            self.firstrun =  False
+    	fleeVectors = Vector3(0,0,0)
         objectiveVector = self.commands[0].findVector()
         collideDist = pow((self.Ent.radius + self.commands[1].target.radius),2)
         for TerrainObj in self.Ent.engine.entityMgr.terrain:
@@ -77,18 +83,38 @@ class pathfinding(commandMgr):
         self.Ent.desiredHeading = math.atan2(-objectiveVector.z, objectiveVector.x)
         self.commands[0].checkStop()
         
-class motherShipCommandMgr(commandMgr):
-
+class motherShipCommandMgr(pathfinding ):
+    terrainList = []
     def __init__(self, Ent):
-        self.Ent = Ent
-        self.commands = [move(self.Ent, Vector3(0,0,500)), move(self.Ent, Vector3(500,0,500)), move(self.Ent, Vector3(500,0,-500)), move(self.Ent, Vector3(0,0,-500)), move(self.Ent, Vector3(0,0,0)) ]
-
+        pathfinding.__init__(self, Ent)
+        #commandMgr.__init__(self, Ent)
+        self.commandlist = [move(self.Ent, Vector3(0  ,0, 500)), 
+                            move(self.Ent, Vector3(500,0, 500)), 
+                            move(self.Ent, Vector3(500,0,-500)), 
+                            move(self.Ent, Vector3(0  ,0,-500)), 
+                            move(self.Ent, Vector3(0  ,0,   0))]
+        
+    def init(self):
+        pathfinding.init(self)
+        self.changeDir(self.commandlist[0])
+        self.commandlist.pop(0)
+        
     def addCom(self, comType):
         pass
-
+        
+    def changeDir(self, comType):
+        self.commands[0] = comType
+        
     def clearComs(self):
         pass
-
+        
+    def tick(self, dTime):
+        pathfinding.tick(self, dTime)
+        if len(self.commandlist) > 0:
+            if self.commands[0].finished == True:
+                self.changeDir(self.commandlist[0])
+                self.commandlist.pop(0)
+            
 class attackerCmdMgr(commandMgr):
     
     def __init__(self, Ent):
@@ -107,12 +133,13 @@ class attackerCmdMgr(commandMgr):
         if len(self.commands) > 0:
             if self.commands[0].finished == True:
                 self.comFinished()
+                self.Ent.speed = 0
             else:
             	self.checkTarget()
                 self.commands[0].tick(dTime)
         elif len(self.commands) == 0:
             self.deathtimer +=1
-            if self.deathtimer == 10:
+            if self.deathtimer == 5:
                 self.Ent.toRender == False
                   
     def checkTarget(self):
@@ -144,7 +171,7 @@ class Commands:
 			self.commands[0].tick(dTime)
 			
 class move(Commands):
-
+    
     def __init__(self, currEnt, desiredPoint = Vector3(0,0,0)):
         Commands.__init__(self, currEnt)
         self.currEnt = currEnt
@@ -179,6 +206,7 @@ class intercept(Commands):
         self.Ent    = Ent
         self.target = target
         return None
+        
     def checkStop(self):
         pass
         
