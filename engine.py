@@ -97,8 +97,8 @@ class Engine(object):
             if self.Endgame == True:
                 self.stop()
         print "381 Engine exiting..."
-
-        self.titleSplashScreen2 = titleSplash.TitleSplashScreen(self.gameTitleScreen) 
+        thing = True
+        self.endScreen = titleSplash.EndScreen(self.gameTitleScreen, thing)
 
         #time.sleep(5) # game ended, wait for a few seconds
     

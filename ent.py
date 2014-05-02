@@ -32,6 +32,7 @@ class Entity:
         self.toRender = True
         self.isDefender = False
         self.isAttacker = False
+        self.scaling = 1.0
         
     def init(self):
         self.initAspects()
@@ -69,6 +70,7 @@ class motherShip(Entity):
         self.radius = 100
         self.health = 100
         self.robotsDestroyed = 0
+        self.isDefender = False
 #-----------------------------------------------------------------------------------------
 class defender(Entity):
     def __init__(self, engine, id, pos = Vector3(0,0,0), vel = Vector3(0, 0, 0), yaw = 0, defenderNum = 0):
@@ -104,7 +106,9 @@ class attacker(Entity):
         self.heading = 0
         self.aspectTypes = [Physics, Renderer, ai.attackerCmdMgr, AnimationMgr]
         self.isAttacker = True
+        self.isDefender = False
         self.radius = 20
+        self.scaling = 2.0
 #-----------------------------------------------------------------------------------------
 
 class terrain(Entity):
@@ -122,5 +126,6 @@ class terrain(Entity):
         self.aspectTypes = [Renderer]
         self.isTerrain = True
         self.radius = 25
+        self.isDefender = False
         
 
