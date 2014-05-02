@@ -1,7 +1,7 @@
 # Simple Rendering Aspect for 38Engine
 # Sushil Louis
 
-#from vector import Vector3
+from vector import Vector3
 import utils
 import math
 import ogre.renderer.OGRE as ogre
@@ -9,11 +9,18 @@ import ogre.renderer.OGRE as ogre
 class Renderer:
     def __init__(self, ent):
         self.ent = ent
+        #self.boundingNode = None
         print "Rendering seting up for: ", str(self.ent)
-        self.gent =  self.ent.engine.gfxMgr.sceneManager.createEntity(self.ent.uiname + "_ogreEnt", self.ent.mesh)
+        self.gent =  self.ent.engine.gfxMgr.sceneManager.createEntity(self.ent.uiname + "_ogreEnt", self.ent.mesh)#,scaling)
         self.SM = self.ent.engine.gfxMgr.sceneManager
         self.node =  self.SM.getRootSceneNode().createChildSceneNode(self.ent.uiname + 'node', ent.pos)
-        if self.ent.isDefender == True: 
+        if self.ent.isDefender == True:
+            self.boundingEnt = self.ent.engine.gfxMgr.sceneManager.createEntity(self.ent.uiname + "_box", 'sphere.mesh')
+            self.boundingEnt.setMaterialName('Examples/oneDefender')
+            newPos = Vector3(0, ent.pos.y + 60, 0)
+            self.boundingNode = self.node.createChildSceneNode(self.ent.uiname + '_boxNode', newPos)
+            self.boundingNode.attachObject(self.boundingEnt)
+            self.boundingNode.setScale(.2,.2,.2)
             if self.ent.defenderNum == 1:
                 self.gent.setMaterialName('Examples/oneDefender')
             elif self.ent.defenderNum == 2:
@@ -62,10 +69,10 @@ class Renderer:
             self.node.setPosition(self.ent.pos)
             self.node.resetOrientation()
             self.node.yaw(ogre.Radian(self.ent.heading))
-            if self.ent.isSelected:
-                self.node.showBoundingBox(True)
-            else:
-                self.node.showBoundingBox(False)
+            if self.ent.isSelected and self.ent.isDefender:
+                self.boundingNode.setVisible(True)
+            elif self.ent.isSelected == False and self.ent.isDefender:
+                self.boundingNode.setVisible(False)
         
         elif self.ent.aspects[2].deathtimer >= 20:
             pass

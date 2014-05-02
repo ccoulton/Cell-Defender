@@ -9,7 +9,7 @@ class Engine(object):
     def __init__(self):
         self.delay = 1000
         self.studioName = "../media/materials/textures/wankershimStartScreen.gif"
-        #self.gameTitleScreen = ''
+        self.gameTitleScreen = 'TextureStuff/green.gif'
 
     def init(self):
         import splashScreen
@@ -69,6 +69,9 @@ class Engine(object):
         weu.messagePump()                 # Needed for linux/mac
 
         self.splash.join()
+
+        import titleSplash
+        self.titleSplashScreen = titleSplash.TitleSplashScreen(self.gameTitleScreen)        
         
         self.oldTime = time.time()        
         self.runTime = 0
@@ -95,5 +98,7 @@ class Engine(object):
                 self.stop()
         print "381 Engine exiting..."
 
-        time.sleep(5) # game ended, wait for a few seconds
+        self.titleSplashScreen2 = titleSplash.TitleSplashScreen(self.gameTitleScreen) 
+
+        #time.sleep(5) # game ended, wait for a few seconds
     
