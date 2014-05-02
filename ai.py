@@ -71,14 +71,18 @@ class pathfinding(commandMgr):
             self.firstrun =  False
     	fleeVectors = Vector3(0,0,0)
         objectiveVector = self.commands[0].findVector()
-        collideDist = pow((self.Ent.radius + self.commands[1].target.radius),2)
+        collideDist = pow(self.Ent.radius,2) + pow(self.commands[1].target.radius,2)
         for TerrainObj in self.Ent.engine.entityMgr.terrain:
-            if diffDist(self.Ent.pos, TerrainObj.pos) <= 2*collideDist:
+            dist = diffDist(self.Ent.pos, TerrainObj.pos)
+            if dist <= 2*collideDist:
+            	fieldIntensity = 200
+                if dist < collideDist:
+                	fieldIntensity = 700
                 self.commands[1].changeTar(TerrainObj)
                 diff = self.commands[1].findVector()
                 fleeAngle = math.atan2(diff.z, -diff.x)
-                fleeVectors.x+= math.cos(fleeAngle)*(self.Ent.speed+self.Ent.radius+TerrainObj.radius)
-                fleeVectors.z+=-math.sin(fleeAngle)*(self.Ent.speed+self.Ent.radius+TerrainObj.radius)
+                fleeVectors.x+= math.cos(fleeAngle)*(fieldIntensity+self.Ent.radius+TerrainObj.radius)
+                fleeVectors.z+=-math.sin(fleeAngle)*(fieldIntensity+self.Ent.radius+TerrainObj.radius)
         objectiveVector += fleeVectors
         self.Ent.desiredHeading = math.atan2(-objectiveVector.z, objectiveVector.x)
         self.commands[0].checkStop()

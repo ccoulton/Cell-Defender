@@ -3,7 +3,7 @@ from vector import Vector3
 class AnimationMgr:
     def __init__(self, Ent):
         self.Ent = Ent
-        print "Animation Setup for: ", str(self.Ent)
+        print "Animation Setup for: %s" % self.Ent.uiname
         self.gent = self.Ent.engine.gfxMgr.sceneManager.getEntity(self.Ent.uiname +"_ogreEnt")
         self.node = self.Ent.aspects[1].node
         self.animationState = self.gent.getAnimationState('Idle')
