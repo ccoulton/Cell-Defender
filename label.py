@@ -25,13 +25,13 @@ import ogre.renderer.OGRE as ogre
 class Label:
     '''
     '''
-    def __init__(self, caption = "Never give up, never surrender", color = (1.0, 1.0, 0.7), dim = (210, 30), pos = (0, 0)):
+    def __init__(self, caption = "Never give up, never surrender", color = (1.0, 1.0, 1.0), dim = (210, 30), pos = (0, 0)):
         '''
         '''
         overlayManager = ogre.OverlayManager.getSingleton()
 
         #load in font to use for label
-        self.font = ogre.FontManager.getSingleton().getByName("BlueHighway")
+        self.font = ogre.FontManager.getSingleton().getByName("StarWars")
         if not self.font.isLoaded():
             self.font.load();
 
@@ -51,7 +51,7 @@ class Label:
         self.textArea.setCaption(caption)
         self.textArea.setPosition(self.px  + self.xOffset, self.py + self.yOffset)
         self.textArea.setDimensions(self.dx, self.dy)
-        self.textArea.setFontName("BlueHighway")
+        self.textArea.setFontName("StarWars")
         self.textArea.setCharHeight(self.dy)
         self.textArea.setColour(self.color)
         self.textArea.show()
