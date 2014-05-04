@@ -28,6 +28,8 @@ class GameMgr:
     def game1(self):
         import ent
         x = 0
+        y = 0
+        z = 0
         self.spawnNum = 1
         self.spawnCount = 1
         self.updateTimer = 0
@@ -40,12 +42,66 @@ class GameMgr:
                 pass
             else:
             	if str(entType) == 'ent.terrain':
-            		ent = self.engine.entityMgr.createTerrain(entType, pos = Vector3(0,0,x))
-            		ent = self.engine.entityMgr.createTerrain(entType, pos = Vector3(x,0,0))
-            		ent = self.engine.entityMgr.createTerrain(entType, pos = Vector3(-x,0,0))
-            		ent = self.engine.entityMgr.createTerrain(entType, pos = Vector3(0,0,2.5*x))
-            		ent = self.engine.entityMgr.createTerrain(entType, pos = Vector3(2.5*x,0,0))
-            		ent = self.engine.entityMgr.createTerrain(entType, pos = Vector3(-2.5*x,0,0))
+                    y = random.randint(1650, 3000)
+                    z = random.randint(650, 2500)
+                    ent = self.engine.entityMgr.createTerrain(entType, pos = Vector3(z,0,y))
+                    y = random.randint(1650, 3000)
+                    z = random.randint(650, 2500)
+                    ent = self.engine.entityMgr.createTerrain(entType, pos = Vector3(y,0,0))
+                    y = random.randint(1650, 3000)
+                    z = random.randint(650, 2500)
+                    ent = self.engine.entityMgr.createTerrain(entType, pos = Vector3(-y,0,z))
+                    y = random.randint(1650, 3000)
+                    z = random.randint(650, 2500)
+                    ent = self.engine.entityMgr.createTerrain(entType, pos = Vector3(-z,0,y))
+                    y = random.randint(1650, 3000)
+                    z = random.randint(650, 2500)
+                    ent = self.engine.entityMgr.createTerrain(entType, pos = Vector3(y,0,-z))
+                    y = random.randint(1650, 3000)
+                    z = random.randint(650, 2500)
+                    ent = self.engine.entityMgr.createTerrain(entType, pos = Vector3(-y,0,0))
+                    y = random.randint(1650, 3000)
+                    z = random.randint(650, 2500)
+                    ent = self.engine.entityMgr.createTerrain(entType, pos = Vector3(z,0,y))
+                    y = random.randint(1650, 3000)
+                    z = random.randint(650, 2500)
+                    ent = self.engine.entityMgr.createTerrain(entType, pos = Vector3(y,0,y))
+                    y = random.randint(1650, 3000)
+                    z = random.randint(650, 2500)
+                    ent = self.engine.entityMgr.createTerrain(entType, pos = Vector3(-y,0,z))
+                    y = random.randint(1650, 3000)
+                    z = random.randint(650, 2500)
+                    ent = self.engine.entityMgr.createTerrain(entType, pos = Vector3(-y,0,-z))
+                    y = random.randint(1650, 3000)
+                    z = random.randint(650, 2500)
+                    ent = self.engine.entityMgr.createTerrain(entType, pos = Vector3(-y,0,-z))
+                    y = random.randint(1650, 3000)
+                    z = random.randint(650, 2500)
+                    ent = self.engine.entityMgr.createTerrain(entType, pos = Vector3(-y,0,z))
+                    y = random.randint(1650, 3000)
+                    z = random.randint(650, 2500)
+                    ent = self.engine.entityMgr.createTerrain(entType, pos = Vector3(z,0,y))
+                    y = random.randint(1650, 3000)
+                    z = random.randint(650, 2500)
+                    ent = self.engine.entityMgr.createTerrain(entType, pos = Vector3(y,0,z))
+                    y = random.randint(1650, 3000)
+                    z = random.randint(650, 2500)
+                    ent = self.engine.entityMgr.createTerrain(entType, pos = Vector3(y,0,-z))
+                    y = random.randint(1650, 3000)
+                    z = random.randint(650, 2500)
+                    ent = self.engine.entityMgr.createTerrain(entType, pos = Vector3(-.2*y,0,-.5*z))
+                    y = random.randint(1650, 3000)
+                    z = random.randint(650, 2500)
+                    ent = self.engine.entityMgr.createTerrain(entType, pos = Vector3(.3*y,0,-.5*z))
+                    y = random.randint(1650, 3000)
+                    z = random.randint(650, 2500)
+                    ent = self.engine.entityMgr.createTerrain(entType, pos = Vector3(-.5*y,0,.5*z))
+                    y = random.randint(1650, 3000)
+                    z = random.randint(650, 2500)
+                    ent = self.engine.entityMgr.createTerrain(entType, pos = Vector3(.2*y,0,.5*z))
+                    y = random.randint(1650, 3000)
+                    z = random.randint(650, 2500)
+                    ent = self.engine.entityMgr.createTerrain(entType, pos = Vector3(.4*y,0,.5*z))
             	else:
                 	ent = self.engine.entityMgr.createEnt(entType, pos = Vector3(0, 0, x))
                 print "GameMgr Created: ", ent.uiname, ent.eid
@@ -65,7 +121,7 @@ class GameMgr:
         for index in range(0,self.spawnNum):
             x = random.randint(-10, 10)
             z = random.randint(-10, 10)
-            randDist = random.randint(1500, 1550)
+            randDist = random.randint(1600, 1750)
             randomVector = Vector3(x, 0, z)
             randomVector.normalise()
             randomVector = randomVector * randDist
@@ -75,7 +131,7 @@ class GameMgr:
 #----------------------------------------        
     def tick(self, dt):
         self.updateTimer += 1
-        if self.updateTimer % 500 == 0:
+        if self.updateTimer % 800 == 0:
         #if self.updateTimer % (1000/self.spawnCount) == 0:
             self.spawnEnemy()
         if self.engine.entityMgr.ents[0].health <= 0:

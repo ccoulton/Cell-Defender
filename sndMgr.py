@@ -33,16 +33,31 @@ class SndMgr:
         self.manager.destroySound(self.bgm)
 
         pass
+
+    def stopBackGround(self):
+        self.bgm.pause()
+
+    def playGameOver(self):
+        self.bgm = self.manager.createSound("gameOver", "gameover.ogg", loop = False)
+        self.bgm.setGain(0.9)
+        self.bgm.play()
         
     def tick(self, dtime):
         pass
 
     def playRobotDeath(self):
-        self.sounds.append(self.manager.createSound('death' + str(self.index), 
+        self.sounds.insert(0, self.manager.createSound('death' + str(self.index), 
                                             'explosion.ogg', loop = False))
         self.index += 1
-        newSound.setGain(0.7)
-        newSound.play()
+        self.sounds[0].setGain(0.7)
+        self.sounds[0].play()
+
+    def playRobotDeathDefender(self):
+        self.sounds.insert(0, self.manager.createSound('death' + str(self.index), 
+                                            'Powerup.ogg', loop = False))
+        self.index += 1
+        self.sounds[0].setGain(0.7)
+        self.sounds[0].play()
 
     def loadLevel(self, dtime):
         pass

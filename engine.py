@@ -10,6 +10,7 @@ class Engine(object):
         self.delay = 1000
         self.studioName = "../media/materials/textures/wankershimStartScreen.gif"
         self.gameTitleScreen = 'TextureStuff/Instructions.gif'
+        self.score = 0
 
     def init(self):
         import splashScreen
@@ -95,8 +96,13 @@ class Engine(object):
             weu.messagePump()             # Needed for linux/mac
             time.sleep(0.001)
             if self.Endgame == True:
+                self.sndMgr.stopBackGround()
+                self.sndMgr.playGameOver()
                 self.stop()
-        print "381 Engine exiting..."
+
+        self.score = self.entityMgr.ents[0].robotsDestroyed
+
+        print "381 Engine exiting...", self.score
         thing = True
         self.endScreen = titleSplash.EndScreen('TextureStuff/gameOver.gif', thing)
 

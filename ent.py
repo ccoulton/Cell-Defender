@@ -114,7 +114,7 @@ class attacker(Entity):
 class terrain(Entity):
     def __init__(self, engine, id, pos = Vector3(0,0,0), vel = Vector3(0, 0, 0), yaw = 0):
         Entity.__init__(self, engine, id, pos = pos, vel = vel, yaw = yaw)
-        self.mesh = 'ogrehead.mesh'
+        self.mesh = 'asteroid.mesh'
         self.uiname = 'terrain' + str(id)
         self.acceleration = 0
         self.turningRate  = 0
