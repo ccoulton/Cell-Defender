@@ -367,6 +367,7 @@ material Examples/CloudySky
 		}
 	}
 }
+
 material Examples/RustySteel
 {
 	technique
@@ -376,6 +377,21 @@ material Examples/RustySteel
 			texture_unit
 			{
 				texture RustySteel.jpg
+			}
+		}
+	}
+}
+
+material Examples/seamlessDirt
+{
+	technique
+	{
+		pass
+		{
+
+			texture_unit
+			{
+				texture seamless_dirt_texture.jpg
 			}
 		}
 	}
