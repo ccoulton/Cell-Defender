@@ -9,7 +9,7 @@ class Engine(object):
     def __init__(self):
         self.delay = 1000
         self.studioName = "../media/materials/textures/wankershimStartScreen.gif"
-        self.gameTitleScreen = 'TextureStuff/green.gif'
+        self.gameTitleScreen = 'TextureStuff/Instructions.gif'
 
     def init(self):
         import splashScreen
@@ -98,7 +98,7 @@ class Engine(object):
                 self.stop()
         print "381 Engine exiting..."
         thing = True
-        self.endScreen = titleSplash.EndScreen(self.gameTitleScreen, thing)
+        self.endScreen = titleSplash.EndScreen('TextureStuff/gameOver.gif', thing)
 
         #time.sleep(5) # game ended, wait for a few seconds
     
