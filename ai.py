@@ -92,9 +92,9 @@ class motherShipCommandMgr(pathfinding ):
     def __init__(self, Ent):
         pathfinding.__init__(self, Ent)
         #commandMgr.__init__(self, Ent)
-        self.commandlist = [move(self.Ent, Vector3(0  ,0, 500)), 
-                            move(self.Ent, Vector3(500,0, 500)), 
-                            move(self.Ent, Vector3(500,0,-500)), 
+        self.commandlist = [move(self.Ent, Vector3(1000  ,0, 1000)), 
+                            move(self.Ent, Vector3(100,0, -500)), 
+                            move(self.Ent, Vector3(1200,0,500)), 
                             move(self.Ent, Vector3(0  ,0,-500)), 
                             move(self.Ent, Vector3(0  ,0,   0))]
         
@@ -159,7 +159,7 @@ class attackerCmdMgr(commandMgr):
             currentDist = diffDist(self.Ent.pos, defender.pos)
             if currentDist < 4000:
                 #Defender struck
-                self.Ent.engine.sndMgr.playRobotDeath()
+                self.Ent.engine.sndMgr.playRobotDeathDefender()
                 self.target.robotsDestroyed += 1
                 self.Ent.engine.widgetMgr.deathLabel.setCaption(str(self.target.robotsDestroyed))
                 self.comFinished
@@ -193,7 +193,7 @@ class move(Commands):
         if self.currEnt.speed > 0:
             stopDist = dist/self.currEnt.speed
         shipStop = self.currEnt.speed/self.currEnt.acceleration
-        if checkDist(dist, 100):
+        if checkDist(dist, 250):
             self.finished = True
         else:
             if stopDist <= shipStop + self.currEnt.speed:

@@ -15,12 +15,12 @@ class Renderer:
         self.SM = self.ent.engine.gfxMgr.sceneManager
         self.node =  self.SM.getRootSceneNode().createChildSceneNode(self.ent.uiname + 'node', ent.pos)
         if self.ent.isDefender == True:
-            self.boundingEnt = self.ent.engine.gfxMgr.sceneManager.createEntity(self.ent.uiname + "_box", 'sphere.mesh')
-            self.boundingEnt.setMaterialName('Examples/oneDefender')
-            newPos = Vector3(0, ent.pos.y + 60, 0)
+            self.boundingEnt = self.ent.engine.gfxMgr.sceneManager.createEntity(self.ent.uiname + "_box", 'smallBoatOverlay.mesh')
+            #self.boundingEnt.setMaterialName('Examples/oneDefender')
+            newPos = Vector3(0, ent.pos.y + 4, 0)
             self.boundingNode = self.node.createChildSceneNode(self.ent.uiname + '_boxNode', newPos)
             self.boundingNode.attachObject(self.boundingEnt)
-            self.boundingNode.setScale(.2,.2,.2)
+            self.boundingNode.setScale(130,130,130)
             if self.ent.defenderNum == 1:
                 self.gent.setMaterialName('Examples/groundTexture')
             elif self.ent.defenderNum == 2:
@@ -33,6 +33,9 @@ class Renderer:
         elif self.ent.uiname == 'motherShip0':
             self.createLight(self.ent.eid)
             self.gent.setMaterialName('Examples/mothership')
+        elif self.ent.mesh == 'asteroid.mesh':
+            self.gent.setMaterialName('Examples/BeachStones')
+            self.node.setScale(25,25,25)
 
         self.gent.setCastShadows(False)
 
