@@ -149,19 +149,22 @@ class attackerCmdMgr(commandMgr):
     def checkTarget(self):
         dist = diffDist(self.Ent.pos, self.target.pos)
         if dist < 12000:
-        	#Mothership struck
-        	self.comFinished
-        	self.commands[0].finished = True
-        	self.target.health -= 10
-        	self.Ent.engine.widgetMgr.healthLabel.setCaption(str(self.target.health))
+            #Mothership struck
+            self.Ent.engine.sndMgr.playRobotDeath()
+            self.comFinished
+            self.commands[0].finished = True
+            self.target.health -= 10
+            self.Ent.engine.widgetMgr.healthLabel.setCaption(str(self.target.health))
         for defender in self.Ent.engine.entityMgr.defenders:
             currentDist = diffDist(self.Ent.pos, defender.pos)
             if currentDist < 4000:
-            	#Defender struck
+                #Defender struck
+                self.Ent.engine.sndMgr.playRobotDeath()
                 self.target.robotsDestroyed += 1
                 self.Ent.engine.widgetMgr.deathLabel.setCaption(str(self.target.robotsDestroyed))
                 self.comFinished
                 self.commands[0].finished = True
+
 class Commands:
 	
 	def __init__(self, Ent):

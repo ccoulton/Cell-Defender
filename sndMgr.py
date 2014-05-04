@@ -12,6 +12,7 @@ import ogre.sound.OgreAL as OgreAL
 class SndMgr:
 
     def __init__(self, engine):
+        self.index = 0
         self.engine = engine
         #self.engine.gfxMgr.root.loadPlugin("OgreOggSound")
         self.manager = OgreAL.SoundManager()
@@ -21,7 +22,7 @@ class SndMgr:
     def init(self):
         print "Initializing Sound manager"
         #self.sndMgr = OgreAL.SoundManager()
-        self.bgm = self.manager.createSound("background", "Voyager.ogg")
+        self.bgm = self.manager.createSound("background", "Voyager.ogg", loop = True)
         self.bgm.setGain(0.9)
         self.bgm.play()
         pass
@@ -34,6 +35,13 @@ class SndMgr:
         
     def tick(self, dtime):
         pass
+
+    def playRobotDeath(self):
+        newSound = self.manager.createSound('death' + str(self.index), 
+                                            'explosion.ogg', loop = False)
+        self.index += 1
+        newSound.setGain(0.7)
+        newSound.play()
 
     def loadLevel(self, dtime):
         pass
