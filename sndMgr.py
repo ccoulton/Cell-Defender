@@ -13,6 +13,7 @@ class SndMgr:
 
     def __init__(self, engine):
         self.index = 0
+        self.sounds = []
         self.engine = engine
         #self.engine.gfxMgr.root.loadPlugin("OgreOggSound")
         self.manager = OgreAL.SoundManager()
@@ -37,8 +38,8 @@ class SndMgr:
         pass
 
     def playRobotDeath(self):
-        newSound = self.manager.createSound('death' + str(self.index), 
-                                            'explosion.ogg', loop = False)
+        self.sounds.append(self.manager.createSound('death' + str(self.index), 
+                                            'explosion.ogg', loop = False))
         self.index += 1
         newSound.setGain(0.7)
         newSound.play()
