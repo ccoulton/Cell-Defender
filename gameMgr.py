@@ -135,7 +135,7 @@ class GameMgr:
         #if self.updateTimer % (1000/self.spawnCount) == 0:
             self.spawnEnemy()
         if self.engine.entityMgr.ents[0].health <= 0:
-            self.engine.keepRunning = False
+            self.engine.Endgame = True
 
     def stop(self):
         pass
