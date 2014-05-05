@@ -1,6 +1,6 @@
 import Tkinter as tk
 
-class TitleSplashScreen(tk.Frame, ):
+class TitleSplashScreen(tk.Frame):
 
     def __init__(self, image_file):
         self.root = tk.Tk()
@@ -29,13 +29,17 @@ class TitleSplashScreen(tk.Frame, ):
         self.root.mainloop()
 
 
-class EndScreen(TitleSplashScreen):
-    def __init__(self, image_file, keepPlaying):
-        TitleSplashScreen.__init__(self, image_file)
-        self.keepPlaying = keepPlaying
+class EndScreen(tk.Frame):
+    def __init__(self, image_file, score):
+        self.root = tk.Tk()
+        tk.Frame.__init__(self, master=self.root)
+        self.image_file = image_file
+        self.score = score
+        self.pack(side = tk.BOTTOM)
+        self.run()
 
     def quit(self):
-        self.keepPlaying = False
+
         self.root.destroy()
 
     def run(self):
@@ -48,6 +52,9 @@ class EndScreen(TitleSplashScreen):
         canvas = tk.Canvas(self.root, height=height*1, width=width*1, bg="brown")
         canvas.create_image(0, 0, image=image, anchor=tk.NW)
         canvas.pack()
+        scoreText = 'Score: ' + str(self.score)
+        scoreLabel = tk.Label(self, text= scoreText, font=("Comic Sans", 24), bg = 'green')
+        scoreLabel.pack(side = tk.TOP)
         quitButton = tk.Button(self, text='Exit Game', command=self.quit, width = 60, height = 7, bg = '#000fff000', highlightcolor = '#00ffff')
         quitButton.pack(side = tk.TOP)
         #self.root.after(5000, self.root.destroy)

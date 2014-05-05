@@ -22,9 +22,9 @@ class Renderer:
             self.boundingNode.attachObject(self.boundingEnt)
             self.boundingNode.setScale(130,130,130)
             if self.ent.defenderNum == 1:
-                self.gent.setMaterialName('Examples/groundTexture')
+                self.gent.setMaterialName('Examples/oneDefender')
             elif self.ent.defenderNum == 2:
-                self.gent.setMaterialName('Examples/Texture2')
+                self.gent.setMaterialName('Examples/twoDefender')
             elif self.ent.defenderNum == 3:
                 self.gent.setMaterialName('Examples/threeDefender')
             elif self.ent.defenderNum == 4:
