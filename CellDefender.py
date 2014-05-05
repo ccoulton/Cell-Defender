@@ -1,4 +1,6 @@
+#!/usr/bin/env python
 # create, initialize, and run the 381 engine
+
 
 import engine
 
