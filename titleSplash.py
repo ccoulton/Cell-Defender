@@ -24,7 +24,7 @@ class TitleSplashScreen(tk.Frame):
         playButton = tk.Button(self, text='Play Game!', command=self.root.destroy, width = 60, height = 7, bg = '#000fff000', highlightcolor = '#00ffff', highlightbackground = '#00ffff')
         #playButton.place(x = (width/2), y = (height/2))
         #playButton.place(x = 500, y = 500, anchor = tk.CENTER)
-        playButton.pack(side = tk.TOP)
+        playButton.pack(side = tk.TOP, fill=tk.X)
         #self.root.after(5000, self.root.destroy)
         self.root.mainloop()
 
@@ -48,15 +48,17 @@ class EndScreen(tk.Frame):
         width = self.root.winfo_screenwidth()
         height = self.root.winfo_screenheight()
         self.root.geometry('%dx%d+%d+%d' % (width*1, height*1, width*0.00, height*0.00))
+
+        scoreText = 'Score: ' + str(self.score)
+        scoreLabel = tk.Label(self, text= scoreText, font=("Comic Sans", 72), fg = 'green', bg = 'black', width = 150)
+        scoreLabel.pack(side = tk.TOP)
+        quitButton = tk.Button(self, text='Exit Game', font=("Comic Sans", 52), command=self.quit, width = 150, bg = '#000fff000', highlightcolor = '#00ffff')
+        quitButton.pack(side = tk.TOP, fill=tk.Y, anchor = tk.SE)
+
         image = tk.PhotoImage(file=self.image_file)
         canvas = tk.Canvas(self.root, height=height*1, width=width*1, bg="brown")
         canvas.create_image(0, 0, image=image, anchor=tk.NW)
         canvas.pack()
-        scoreText = 'Score: ' + str(self.score)
-        scoreLabel = tk.Label(self, text= scoreText, font=("Comic Sans", 24), bg = 'green')
-        scoreLabel.pack(side = tk.TOP)
-        quitButton = tk.Button(self, text='Exit Game', command=self.quit, width = 60, height = 7, bg = '#000fff000', highlightcolor = '#00ffff')
-        quitButton.pack(side = tk.TOP)
         #self.root.after(5000, self.root.destroy)
         self.root.mainloop()
 
