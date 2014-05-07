@@ -1908,7 +1908,7 @@ material Examples/mothership
 
 			texture_unit
 			{
-				texture terr_rock6.jpg
+				texture mothership.png
 			}
 		}
 	}
