@@ -86,7 +86,7 @@ class defender(Entity):
         self.heading = 0
         self.isDefender = True
         self.defenderNum = defenderNum
-        self.aspectTypes = [Physics, Renderer, ai.defenderPathing]
+        self.aspectTypes = [Physics, Renderer, ai.pathfinding]
         self.lightHeight = 500
         self.radius = 50
 #-----------------------------------------------------------------------------------------
