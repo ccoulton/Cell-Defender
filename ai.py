@@ -88,15 +88,26 @@ class pathfinding(commandMgr):
         self.commands[0].checkStop()
         
 class motherShipCommandMgr(pathfinding ):
+
     terrainList = []
     def __init__(self, Ent):
+        import random
+
         pathfinding.__init__(self, Ent)
         #commandMgr.__init__(self, Ent)
-        self.commandlist = [move(self.Ent, Vector3(1000  ,0, 1000)), 
-                            move(self.Ent, Vector3(100,0, -500)), 
-                            move(self.Ent, Vector3(1200,0,500)), 
-                            move(self.Ent, Vector3(0  ,0,-500)), 
-                            move(self.Ent, Vector3(0  ,0,   0))]
+
+        x = random.randint(-1500, 1500)
+        z = random.randint(-1500, 1500)
+        self.commandlist = [move(self.Ent, Vector3(x  ,0, z))]
+#        x = random.randint(1650, 3000)
+#        z = random.randint(650, 2500)
+#        self.commandlist.append(move(self.Ent, Vector3(x  ,0, z)))
+
+#        self.commandlist = [move(self.Ent, Vector3(1000  ,0, 1000)), 
+#                            move(self.Ent, Vector3(100,0, -500)), 
+#                            move(self.Ent, Vector3(1200,0,500)), 
+#                            move(self.Ent, Vector3(0  ,0,-500)), 
+#                            move(self.Ent, Vector3(0  ,0,   0))]
         
     def init(self):
         pathfinding.init(self)
@@ -113,11 +124,17 @@ class motherShipCommandMgr(pathfinding ):
         pass
         
     def tick(self, dTime):
+        import random
+
         pathfinding.tick(self, dTime)
         if len(self.commandlist) > 0:
             if self.commands[0].finished == True:
                 self.changeDir(self.commandlist[0])
                 self.commandlist.pop(0)
+        else:
+            x = random.randint(-1500, 1500)
+            z = random.randint(-1500, 1500)
+            self.commandlist = [move(self.Ent, Vector3(x  ,0, z))]
             
 class attackerCmdMgr(commandMgr):
     
