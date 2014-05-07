@@ -33,6 +33,7 @@ class Renderer:
         elif self.ent.uiname == 'motherShip0':
             self.createLight(self.ent.eid)
             self.gent.setMaterialName('Examples/mothership')
+            self.node.setScale(2,2,2)
         elif self.ent.mesh == 'asteroid.mesh':
             self.gent.setMaterialName('Examples/BeachStones')
             self.node.setScale(25,25,25)
@@ -69,7 +70,10 @@ class Renderer:
         #----------update scene node position and orientation-----------------------------------
         if self.ent.toRender == True:
             #self.checkPos()
-            self.node.setPosition(self.ent.pos)
+            if self.ent.uiname == 'motherShip0':
+                self.node.setPosition(self.ent.pos.x, self.ent.pos.y+50, self.ent.pos.z)
+            else:
+                self.node.setPosition(self.ent.pos)
             self.node.resetOrientation()
             self.node.yaw(ogre.Radian(self.ent.heading))
             if self.ent.isSelected and self.ent.isDefender:
