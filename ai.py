@@ -86,15 +86,26 @@ class pathfinding(commandMgr):
         objectiveVector += fleeVectors
         self.Ent.desiredHeading = math.atan2(-objectiveVector.z, objectiveVector.x)
         self.commands[0].checkStop()
-        
+
+class defenderPathing(pathfinding):
+    terrainList = []
+    def __init__(self, Ent):
+        pathfinding.__init__(self, Ent)
+    
+    def init(self):
+        self.terrainList.append(self.Ent.engine.entityMgr.ents[0])
+        for defender in self.Ent.engine.entityMgr.defenders
+            if defender.defenderNum == self.Ent.defenderNum:
+                pass
+            else:
+                self.terrainList.append(defender)
+                   
 class motherShipCommandMgr(pathfinding ):
 
     terrainList = []
     def __init__(self, Ent):
         import random
-
         pathfinding.__init__(self, Ent)
-        #commandMgr.__init__(self, Ent)
 
         x = random.randint(-1500, 1500)
         z = random.randint(-1500, 1500)
