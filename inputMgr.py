@@ -23,6 +23,7 @@ class InputMgr(OIS.KeyListener, OIS.MouseListener, OIS.JoyStickListener):
         self.startCtr = 0
         self.lastMouseZ = 0
         self.newMouseZ = 0
+        self.numKeypresses = 0
 
 
 
@@ -144,21 +145,27 @@ class InputMgr(OIS.KeyListener, OIS.MouseListener, OIS.JoyStickListener):
         self.pitchRot = 0.0
         # Forward.
         if self.keyboard.isKeyDown(OIS.KC_W):
+            self.numKeypresses += 1
             self.transVector.z -= self.move
         # Backward.
         if self.keyboard.isKeyDown(OIS.KC_S):
+            self.numKeypresses += 1
             self.transVector.z += self.move
         # Left.
         if self.keyboard.isKeyDown(OIS.KC_A):
+            self.numKeypresses += 1
             self.transVector.x -= self.move
         # Right.
         if  self.keyboard.isKeyDown(OIS.KC_D):
+            self.numKeypresses += 1
             self.transVector.x += self.move
         # Up.        
         if self.keyboard.isKeyDown(OIS.KC_R):
+            self.numKeypresses += 1
             self.transVector.y += self.move
         # Down.
         if self.keyboard.isKeyDown(OIS.KC_F):
+            self.numKeypresses += 1
             self.transVector.y -= self.move        
 
         '''if self.keyboard.isKeyDown(OIS.KC_Q):
@@ -177,16 +184,21 @@ class InputMgr(OIS.KeyListener, OIS.MouseListener, OIS.JoyStickListener):
             self.engine.Endgame = True
 
         if self.keyboard.isKeyDown(OIS.KC_SPACE):
+            self.numKeypresses += 1
             self.engine.gfxMgr.camYawNode.setPosition(ogre.Vector3(0,1600,1600) + self.engine.entityMgr.ents[0].pos)
 
         # defender selection through hotkeys
         if self.keyboard.isKeyDown(OIS.KC_1):
+            self.numKeypresses += 1
             self.engine.selectionMgr.selectEnt(self.engine.entityMgr.defenders[0])
         if self.keyboard.isKeyDown(OIS.KC_2):
+            self.numKeypresses += 1
             self.engine.selectionMgr.selectEnt(self.engine.entityMgr.defenders[1])
         if self.keyboard.isKeyDown(OIS.KC_3):
+            self.numKeypresses += 1
             self.engine.selectionMgr.selectEnt(self.engine.entityMgr.defenders[2])
         if self.keyboard.isKeyDown(OIS.KC_4):
+            self.numKeypresses += 1
             self.engine.selectionMgr.selectEnt(self.engine.entityMgr.defenders[3])
 
         return True
@@ -233,8 +245,10 @@ class InputMgr(OIS.KeyListener, OIS.MouseListener, OIS.JoyStickListener):
     def mousePressed(self, evt, id):
         if id == OIS.MB_Left:
             self.handleMouseSelection(evt)
+            self.numKeypresses += 1
         elif id == OIS.MB_Right:
         	self.handleMovementCommands(evt)
+        	self.numKeypresses += 1
         return True
 
     def handleMouseSelection(self, evt):
