@@ -2,10 +2,10 @@ import threading
 
 import Tkinter as tk
 
-class SplashScreen(threading.Thread):
+class SplashScreen():
 
     def __init__(self, delay, image_file):
-        threading.Thread.__init__(self)
+
         self.delay = delay
         self.image_file = image_file
 

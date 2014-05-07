@@ -13,9 +13,6 @@ class Engine(object):
         self.score = 0
 
     def init(self):
-        import splashScreen
-        self.splash = splashScreen.SplashScreen(self.delay, self.studioName)
-        self.splash.start()
 
         import entityMgr
         self.entityMgr = entityMgr.EntityMgr(self)
@@ -69,7 +66,9 @@ class Engine(object):
         weu = ogre.WindowEventUtilities() # Needed for linux/mac
         weu.messagePump()                 # Needed for linux/mac
 
-        self.splash.join()
+        import splashScreen
+        self.splash = splashScreen.SplashScreen(self.delay, self.studioName)
+        self.splash.run()
 
         import titleSplash
         self.titleSplashScreen = titleSplash.TitleSplashScreen(self.gameTitleScreen)        
