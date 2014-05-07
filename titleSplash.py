@@ -21,7 +21,7 @@ class TitleSplashScreen(tk.Frame):
         canvas.create_image(0, 0, image=image, anchor=tk.NW)
         canvas.pack()
 
-        playButton = tk.Button(self, text='Play Game!', command=self.root.destroy, width = 60, height = 7, bg = '#000fff000', highlightcolor = '#00ffff', highlightbackground = '#00ffff')
+        playButton = tk.Button(self, text='Play Game!', font=("Comic Sans", 32), command=self.root.destroy, width = 90, height = 2, bg = '#000fff000', highlightcolor = '#00ffff', highlightbackground = '#00ffff')
         #playButton.place(x = (width/2), y = (height/2))
         #playButton.place(x = 500, y = 500, anchor = tk.CENTER)
         playButton.pack(side = tk.TOP, fill=tk.X)
