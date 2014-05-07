@@ -46,16 +46,19 @@ class commandMgr:
 class pathfinding(commandMgr):
     
     def __init__(self, Ent):
-        terrainList = []
+        self.terrainList = []
         self.Ent = Ent
-        self.terrainList = self.Ent.engine.entityMgr.terrain
+        #self.terrainList = self.Ent.engine.entityMgr.terrain
         self.commands = []
         self.firstrun = True
     
     def init(self):
+        for terrain in self.Ent.engine.entityMgr.terrain:
+                self.terrainList.append(terrain)
         self.commands.append(move(self.Ent, self.Ent.pos))
         self.commands.append(flee(self.Ent, self.terrainList[0]))
         
+            
     def clearComs(self):
 	    pass
 
@@ -88,18 +91,19 @@ class pathfinding(commandMgr):
         self.commands[0].checkStop()
 
 class defenderPathing(pathfinding):
-    terrainList = []
     def __init__(self, Ent):
         pathfinding.__init__(self, Ent)
     
     def init(self):
+        pathfinding.init(self)
         self.terrainList.append(self.Ent.engine.entityMgr.ents[0])
-        for defender in self.Ent.engine.entityMgr.defenders
-            if defender.defenderNum == self.Ent.defenderNum:
+        for defender in self.Ent.engine.entityMgr.defenders:
+             if defender == self.Ent:
                 pass
-            else:
+             else:
                 self.terrainList.append(defender)
-                   
+        print "defender %s 's avoid list" % self.Ent.defenderNum + str(len(self.terrainList))
+        
 class motherShipCommandMgr(pathfinding ):
 
     terrainList = []
