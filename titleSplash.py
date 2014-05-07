@@ -43,6 +43,19 @@ class EndScreen(tk.Frame):
         self.root.destroy()
 
     def run(self):
+        # get high score
+        f = open('highScore.txt', 'r')
+
+        HS = f.read()
+        f.close()
+        HS = int(HS)
+
+        if self.score > HS:
+            HS = self.score
+            f = open('highScore.txt', 'w')
+            f.write(str(HS))
+            f.close()
+
         # show no frame
         self.root.overrideredirect(True)
         width = self.root.winfo_screenwidth()
@@ -50,9 +63,14 @@ class EndScreen(tk.Frame):
         self.root.geometry('%dx%d+%d+%d' % (width*1, height*1, width*0.00, height*0.00))
 
         scoreText = 'Score: ' + str(self.score)
-        scoreLabel = tk.Label(self, text= scoreText, font=("Comic Sans", 72), fg = 'green', bg = 'black', width = 150)
+        scoreLabel = tk.Label(self, text= scoreText, font=("Comic Sans", 60), fg = 'green', bg = 'black', width = 150)
         scoreLabel.pack(side = tk.TOP)
-        quitButton = tk.Button(self, text='Exit Game', font=("Comic Sans", 52), command=self.quit, width = 150, bg = '#000fff000', highlightcolor = '#00ffff')
+
+        scoreText2 = 'High Score: ' + str(HS)
+        scoreLabel2 = tk.Label(self, text= scoreText2, font=("Comic Sans", 60), fg = 'green', bg = 'black', width = 150)
+        scoreLabel2.pack(side = tk.TOP)
+
+        quitButton = tk.Button(self, text='Exit Game', font=("Comic Sans", 52), command=self.quit, width = 150, height = 2, bg = '#000fff000', highlightcolor = '#00ffff')
         quitButton.pack(side = tk.TOP, fill=tk.Y, anchor = tk.SE)
 
         image = tk.PhotoImage(file=self.image_file)
