@@ -27,9 +27,9 @@ class Engine(object):
         self.widgetMgr = widgetMgr.WidgetMgr(self)
         self.widgetMgr.init()
         
-        '''import sndMgr
+        import sndMgr
         self.sndMgr = sndMgr.SndMgr(self)
-        self.sndMgr.init()'''
+        self.sndMgr.init()
 
         import netMgr
         self.netMgr = netMgr.NetMgr(self)
@@ -83,7 +83,7 @@ class Engine(object):
             self.entityMgr.tick(dtime)
             self.gfxMgr.tick(dtime)
             self.widgetMgr.tick(dtime)
-            #self.sndMgr.tick(dtime)
+            self.sndMgr.tick(dtime)
             self.netMgr.tick(dtime)
             self.inputMgr.tick(dtime)
             self.selectionMgr.tick(dtime)
