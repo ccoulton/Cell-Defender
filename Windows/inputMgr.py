@@ -33,7 +33,7 @@ class InputMgr(OIS.KeyListener, OIS.MouseListener, OIS.JoyStickListener):
         windowHandle = renderWindow.getCustomAttributeUnsignedLong("WINDOW")
         paramList = [("WINDOW", str(windowHandle))]
 
-        if os.name == "nt":
+        if str(os.name) == "nt":
             t = [("w32_mouse","DISCL_FOREGROUND"), ("w32_mouse", "DISCL_NONEXCLUSIVE")]
         else:
             t = [("x11_mouse_grab", "false"), ("x11_mouse_hide", "false")]

@@ -6,7 +6,7 @@ import utils
 import math
 import ogre.renderer.OGRE as ogre
 import ogre.io.OIS as OIS
-import ogre.sound.OgreAL as OgreAL
+import ogre.sound.ogreoggsound as OgreOggSound
 
 
 class SndMgr:
@@ -15,16 +15,18 @@ class SndMgr:
         self.index = 0
         self.sounds = []
         self.engine = engine
-        #self.engine.gfxMgr.root.loadPlugin("OgreOggSound")
-        self.manager = OgreAL.SoundManager()
+        self.engine.gfxMgr.root.loadPlugin("OgreOggSound")
+        self.manager = OgreOggSound.OgreOggSoundManager.getSingletonPtr()
+        self.manager.init()
+        #self.manager = OgreAL.SoundManager()
         print "Sound Manager Constructed "
         #self.init()
         
     def init(self):
         print "Initializing Sound manager"
         #self.sndMgr = OgreAL.SoundManager()
-        self.bgm = self.manager.createSound("background", "Voyager.ogg", loop = True)
-        self.bgm.setGain(0.9)
+        self.bgm = self.manager.createSound("background", "Voyager.ogg", True, True, False)
+        #self.bgm.setGain(0.9)
         self.bgm.play()
         pass
 
@@ -38,25 +40,25 @@ class SndMgr:
         self.bgm.pause()
 
     def playGameOver(self):
-        self.bgm = self.manager.createSound("gameOver", "gameover.ogg", loop = False)
-        self.bgm.setGain(0.9)
+        self.bgm = self.manager.createSound("gameOver", "gameover.ogg", False, False, False)
+        #self.bgm.setGain(0.9)
         self.bgm.play()
         
     def tick(self, dtime):
-        pass
+        self.manager.update(dtime)
 
     def playRobotDeath(self):
         self.sounds.insert(0, self.manager.createSound('death' + str(self.index), 
-                                            'explosion.ogg', loop = False))
+                                            'explosion.ogg', False, False, True))
         self.index += 1
-        self.sounds[0].setGain(0.7)
+        #self.sounds[0].setGain(0.7)
         self.sounds[0].play()
 
     def playRobotDeathDefender(self):
         self.sounds.insert(0, self.manager.createSound('death' + str(self.index), 
                                             'Powerup.ogg', loop = False))
         self.index += 1
-        self.sounds[0].setGain(0.7)
+        #self.sounds[0].setGain(0.7)
         self.sounds[0].play()
 
     def loadLevel(self, dtime):
